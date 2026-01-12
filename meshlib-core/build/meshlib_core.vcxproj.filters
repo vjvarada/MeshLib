@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\PointCloud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\Primitives.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\Boolean.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\Decimate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\FillHole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\ICP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\Smooth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\Subdivide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\io\MeshIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\meshlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Id.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\mesh\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\mesh\PointCloud.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\mesh\Primitives.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\Boolean.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\Decimate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\FillHole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\ICP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\Smooth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\Subdivide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\io\MeshIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{92F9E8D4-580D-3DF0-8ACE-7057E3EE063B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{5E486DB1-CFAB-39D7-916D-9119A95ABEB1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

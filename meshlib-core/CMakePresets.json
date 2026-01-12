@@ -1,0 +1,146 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 18,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "native-debug",
+            "displayName": "Native Debug",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "MESHLIB_CORE_BUILD_TESTS": "ON",
+                "MESHLIB_CORE_BUILD_EXAMPLES": "ON"
+            }
+        },
+        {
+            "name": "native-release",
+            "displayName": "Native Release",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "MESHLIB_CORE_BUILD_TESTS": "OFF",
+                "MESHLIB_CORE_BUILD_EXAMPLES": "ON"
+            }
+        },
+        {
+            "name": "native-release-parallel",
+            "displayName": "Native Release with TBB",
+            "inherits": "native-release",
+            "cacheVariables": {
+                "MESHLIB_CORE_PARALLEL": "ON"
+            }
+        },
+        {
+            "name": "native-release-voxels",
+            "displayName": "Native Release with Voxels",
+            "inherits": "native-release",
+            "cacheVariables": {
+                "MESHLIB_CORE_VOXELS": "ON"
+            }
+        },
+        {
+            "name": "wasm",
+            "displayName": "WebAssembly (Emscripten)",
+            "inherits": "base",
+            "toolchainFile": "$env{EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "MESHLIB_CORE_WASM": "ON",
+                "MESHLIB_CORE_PARALLEL": "OFF",
+                "MESHLIB_CORE_VOXELS": "OFF",
+                "MESHLIB_CORE_BUILD_TESTS": "OFF",
+                "MESHLIB_CORE_BUILD_EXAMPLES": "OFF"
+            },
+            "environment": {
+                "EMSCRIPTEN": "1"
+            }
+        },
+        {
+            "name": "wasm-debug",
+            "displayName": "WebAssembly Debug",
+            "inherits": "wasm",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "python",
+            "displayName": "Python Module",
+            "inherits": "native-release",
+            "cacheVariables": {
+                "MESHLIB_CORE_PYTHON": "ON",
+                "MESHLIB_CORE_BUILD_TESTS": "OFF"
+            }
+        },
+        {
+            "name": "python-debug",
+            "displayName": "Python Module Debug",
+            "inherits": "native-debug",
+            "cacheVariables": {
+                "MESHLIB_CORE_PYTHON": "ON"
+            }
+        },
+        {
+            "name": "full",
+            "displayName": "Full Build (All Features)",
+            "inherits": "native-release",
+            "cacheVariables": {
+                "MESHLIB_CORE_PARALLEL": "ON",
+                "MESHLIB_CORE_VOXELS": "ON",
+                "MESHLIB_CORE_PYTHON": "ON",
+                "MESHLIB_CORE_BUILD_TESTS": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "native-debug",
+            "configurePreset": "native-debug"
+        },
+        {
+            "name": "native-release",
+            "configurePreset": "native-release"
+        },
+        {
+            "name": "wasm",
+            "configurePreset": "wasm"
+        },
+        {
+            "name": "python",
+            "configurePreset": "python"
+        },
+        {
+            "name": "full",
+            "configurePreset": "full"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "native-debug",
+            "configurePreset": "native-debug",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "full",
+            "configurePreset": "full",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
+    ]
+}

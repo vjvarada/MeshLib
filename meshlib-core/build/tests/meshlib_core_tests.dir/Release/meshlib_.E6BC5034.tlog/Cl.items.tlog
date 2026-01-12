@@ -1,0 +1,8 @@
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\tests\test_main.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\tests\meshlib_core_tests.dir\Release\test_main.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\tests\test_vector.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\tests\meshlib_core_tests.dir\Release\test_vector.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\tests\test_matrix.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\tests\meshlib_core_tests.dir\Release\test_matrix.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\tests\test_box.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\tests\meshlib_core_tests.dir\Release\test_box.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\tests\test_mesh.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\tests\meshlib_core_tests.dir\Release\test_mesh.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\tests\test_pointcloud.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\tests\meshlib_core_tests.dir\Release\test_pointcloud.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\tests\test_primitives.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\tests\meshlib_core_tests.dir\Release\test_primitives.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\tests\test_io.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\tests\meshlib_core_tests.dir\Release\test_io.obj

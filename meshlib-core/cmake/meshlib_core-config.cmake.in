@@ -1,0 +1,9 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/meshlib_core-targets.cmake")
+
+check_required_components(meshlib_core)
+
+# Propagate feature flags
+set(MESHLIB_CORE_HAS_TBB @MESHLIB_HAS_TBB@)
+set(MESHLIB_CORE_HAS_OPENVDB @MESHLIB_HAS_OPENVDB@)

@@ -1,0 +1,5 @@
+if(EXISTS "C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/meshlib-core/build/tests/meshlib_core_tests[1]_tests.cmake")
+  include("C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/meshlib-core/build/tests/meshlib_core_tests[1]_tests.cmake")
+else()
+  add_test(meshlib_core_tests_NOT_BUILT meshlib_core_tests_NOT_BUILT)
+endif()

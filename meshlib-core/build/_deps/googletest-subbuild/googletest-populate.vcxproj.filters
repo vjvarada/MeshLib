@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\3647f75980189fac7c18acc2cd7b7dc9\googletest-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\3647f75980189fac7c18acc2cd7b7dc9\googletest-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\3647f75980189fac7c18acc2cd7b7dc9\googletest-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\3647f75980189fac7c18acc2cd7b7dc9\googletest-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\3647f75980189fac7c18acc2cd7b7dc9\googletest-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\3647f75980189fac7c18acc2cd7b7dc9\googletest-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\3647f75980189fac7c18acc2cd7b7dc9\googletest-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\3647f75980189fac7c18acc2cd7b7dc9\googletest-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\4b96a4f2b4d64f8eacaac2e6a4c363c4\googletest-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\68a12304a962219b77c7f95a2f8d13c0\googletest-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\_deps\googletest-subbuild\CMakeFiles\googletest-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F62448BA-3127-3F7C-BD2D-92C1ED05BBB9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

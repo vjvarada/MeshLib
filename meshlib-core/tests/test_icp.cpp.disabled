@@ -1,0 +1,212 @@
+/**
+ * @file test_icp.cpp
+ * @brief Unit tests for ICP (Iterative Closest Point) alignment
+ */
+
+#include <gtest/gtest.h>
+#include "meshlib/algorithms/ICP.h"
+#include "meshlib/mesh/Primitives.h"
+#include <cmath>
+
+using namespace meshlib;
+
+class ICPTest : public ::testing::Test {
+protected:
+    Mesh source;
+    Mesh target;
+    PointCloud sourceCloud;
+    PointCloud targetCloud;
+    
+    void SetUp() override {
+        source = createSphere(1.0f, 16, 8);
+        target = source;  // Same mesh
+        
+        // Create point clouds
+        sourceCloud = PointCloud(source.vertices());
+        targetCloud = PointCloud(target.vertices());
+    }
+};
+
+TEST_F(ICPTest, IdenticalMeshes) {
+    ICPParams params;
+    params.maxIterations = 10;
+    
+    auto result = icp(source, target, params);
+    
+    EXPECT_EQ(result.status.code, ErrorCode::Success);
+    EXPECT_NEAR(result.finalError, 0.0f, 1e-3f);
+}
+
+TEST_F(ICPTest, TranslatedMesh) {
+    // Translate source
+    Vector3f translation{1.0f, 0.0f, 0.0f};
+    auto translated = source.translate(translation);
+    
+    ICPParams params;
+    params.maxIterations = 50;
+    params.tolerance = 1e-6f;
+    
+    auto result = icp(translated, target, params);
+    
+    EXPECT_EQ(result.status.code, ErrorCode::Success);
+    
+    // Transform should approximately reverse the translation
+    EXPECT_NEAR(result.transform.translation.x, -1.0f, 0.1f);
+    EXPECT_NEAR(result.transform.translation.y, 0.0f, 0.1f);
+    EXPECT_NEAR(result.transform.translation.z, 0.0f, 0.1f);
+}
+
+TEST_F(ICPTest, PointCloudAlignment) {
+    // Translate source cloud
+    PointCloud translated = sourceCloud;
+    translated.transform(AffineTransform3f::translation({0.5f, 0.5f, 0.0f}));
+    
+    ICPParams params;
+    params.maxIterations = 50;
+    
+    auto result = icp(translated, targetCloud, params);
+    
+    EXPECT_EQ(result.status.code, ErrorCode::Success);
+}
+
+TEST_F(ICPTest, AlignMesh) {
+    auto translated = source.translate({0.5f, 0.0f, 0.0f});
+    
+    ICPParams params;
+    params.maxIterations = 50;
+    
+    Mesh aligned = alignMesh(translated, target, params);
+    
+    // Aligned mesh center should be close to target center
+    auto alignedCenter = aligned.centroid();
+    auto targetCenter = target.centroid();
+    
+    EXPECT_NEAR(alignedCenter.x, targetCenter.x, 0.1f);
+    EXPECT_NEAR(alignedCenter.y, targetCenter.y, 0.1f);
+    EXPECT_NEAR(alignedCenter.z, targetCenter.z, 0.1f);
+}
+
+TEST_F(ICPTest, AlignPointCloud) {
+    PointCloud translated = sourceCloud;
+    translated.transform(AffineTransform3f::translation({0.3f, 0.3f, 0.3f}));
+    
+    ICPParams params;
+    params.maxIterations = 50;
+    
+    PointCloud aligned = alignPointCloud(translated, targetCloud, params);
+    
+    // Check alignment
+    auto alignedCenter = aligned.centroid();
+    auto targetCenter = targetCloud.centroid();
+    
+    float dist = (alignedCenter - targetCenter).length();
+    EXPECT_LT(dist, 0.2f);
+}
+
+TEST_F(ICPTest, ConvergenceFlag) {
+    ICPParams params;
+    params.maxIterations = 100;
+    params.tolerance = 1e-6f;
+    
+    auto result = icp(source, target, params);
+    
+    EXPECT_TRUE(result.converged);
+}
+
+TEST_F(ICPTest, MaxIterationsReached) {
+    // Create significantly different meshes that won't converge easily
+    auto translated = source.translate({10.0f, 10.0f, 10.0f});
+    
+    ICPParams params;
+    params.maxIterations = 2;  // Very few iterations
+    params.tolerance = 1e-10f;  // Impossible tolerance
+    
+    auto result = icp(translated, target, params);
+    
+    // Should return after max iterations
+    EXPECT_EQ(result.iterations, 2);
+}
+
+TEST_F(ICPTest, EmptyInput) {
+    Mesh empty;
+    
+    ICPParams params;
+    auto result = icp(empty, target, params);
+    
+    EXPECT_NE(result.status.code, ErrorCode::Success);
+}
+
+TEST_F(ICPTest, ProgressCallback) {
+    bool callbackCalled = false;
+    
+    ICPParams params;
+    params.maxIterations = 10;
+    params.callback = [&callbackCalled](float progress) {
+        callbackCalled = true;
+        return true;  // Continue
+    };
+    
+    icp(source, target, params);
+    
+    EXPECT_TRUE(callbackCalled);
+}
+
+TEST_F(ICPTest, Cancellation) {
+    auto translated = source.translate({0.5f, 0.0f, 0.0f});
+    
+    ICPParams params;
+    params.maxIterations = 100;
+    params.callback = [](float progress) {
+        return false;  // Cancel immediately
+    };
+    
+    auto result = icp(translated, target, params);
+    
+    EXPECT_EQ(result.status.code, ErrorCode::Cancelled);
+}
+
+TEST_F(ICPTest, MaxCorrespondenceDistance) {
+    auto translated = source.translate({0.5f, 0.0f, 0.0f});
+    
+    ICPParams params;
+    params.maxIterations = 50;
+    params.maxCorrespondenceDistance = 0.01f;  // Very small, should reject most correspondences
+    
+    auto result = icp(translated, target, params);
+    
+    // May fail or have limited correspondences
+    // Just check it doesn't crash
+    EXPECT_TRUE(result.status.code == ErrorCode::Success || 
+                result.status.code == ErrorCode::Failed);
+}
+
+TEST_F(ICPTest, RandomSampling) {
+    auto translated = source.translate({0.3f, 0.0f, 0.0f});
+    
+    ICPParams params;
+    params.maxIterations = 50;
+    params.sampling = ICPSampling::Random;
+    params.maxCorrespondences = 100;  // Use subset of points
+    
+    auto result = icp(translated, target, params);
+    
+    EXPECT_EQ(result.status.code, ErrorCode::Success);
+}
+
+TEST_F(ICPTest, TransformResult) {
+    auto rotated = source.transform(AffineTransform3f::rotationZ(0.1f));
+    
+    ICPParams params;
+    params.maxIterations = 50;
+    
+    auto result = icp(rotated, target, params);
+    
+    // The inverse transform should approximately reverse the rotation
+    // Check that the linear part is close to a rotation matrix
+    float det = result.transform.linear(0,0) * (result.transform.linear(1,1)*result.transform.linear(2,2) - result.transform.linear(1,2)*result.transform.linear(2,1))
+              - result.transform.linear(0,1) * (result.transform.linear(1,0)*result.transform.linear(2,2) - result.transform.linear(1,2)*result.transform.linear(2,0))
+              + result.transform.linear(0,2) * (result.transform.linear(1,0)*result.transform.linear(2,1) - result.transform.linear(1,1)*result.transform.linear(2,0));
+    
+    // Determinant of rotation matrix should be ±1
+    EXPECT_NEAR(std::abs(det), 1.0f, 0.1f);
+}

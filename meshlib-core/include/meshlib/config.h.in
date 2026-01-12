@@ -1,0 +1,62 @@
+#pragma once
+
+// Auto-generated configuration header
+
+#define MESHLIB_CORE_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define MESHLIB_CORE_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define MESHLIB_CORE_VERSION_PATCH @PROJECT_VERSION_PATCH@
+#define MESHLIB_CORE_VERSION "@PROJECT_VERSION@"
+
+// Feature flags (set by CMake)
+#cmakedefine MESHLIB_HAS_TBB
+#cmakedefine MESHLIB_HAS_OPENVDB
+#cmakedefine MESHLIB_CORE_WASM
+
+// Platform detection
+#if defined(__EMSCRIPTEN__)
+    #define MESHLIB_PLATFORM_WASM
+#elif defined(_WIN32)
+    #define MESHLIB_PLATFORM_WINDOWS
+#elif defined(__APPLE__)
+    #define MESHLIB_PLATFORM_MACOS
+#elif defined(__linux__)
+    #define MESHLIB_PLATFORM_LINUX
+#endif
+
+// Export/Import macros
+#if defined(MESHLIB_PLATFORM_WASM)
+    #define MESHLIB_API
+#elif defined(MESHLIB_PLATFORM_WINDOWS)
+    #if defined(MESHLIB_CORE_EXPORTS)
+        #define MESHLIB_API __declspec(dllexport)
+    #else
+        #define MESHLIB_API __declspec(dllimport)
+    #endif
+#else
+    #define MESHLIB_API __attribute__((visibility("default")))
+#endif
+
+// Class visibility for vtables (needed on non-Windows)
+#if defined(MESHLIB_PLATFORM_WINDOWS)
+    #define MESHLIB_CLASS
+#else
+    #define MESHLIB_CLASS __attribute__((visibility("default")))
+#endif
+
+// Inline hints
+#if defined(_MSC_VER)
+    #define MESHLIB_FORCEINLINE __forceinline
+#else
+    #define MESHLIB_FORCEINLINE inline __attribute__((always_inline))
+#endif
+
+// Threading support
+#ifdef MESHLIB_HAS_TBB
+    #define MESHLIB_PARALLEL_ENABLED 1
+#else
+    #define MESHLIB_PARALLEL_ENABLED 0
+#endif
+
+// Namespace
+#define MESHLIB_NAMESPACE_BEGIN namespace meshlib {
+#define MESHLIB_NAMESPACE_END }

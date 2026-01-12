@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\examples\cpp\decimate_example.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\examples\cpp\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{5E486DB1-CFAB-39D7-916D-9119A95ABEB1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

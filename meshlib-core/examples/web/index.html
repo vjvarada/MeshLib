@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeshLib Core + Three.js Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            overflow: hidden;
+        }
+        #container {
+            width: 100vw;
+            height: 100vh;
+        }
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 300px;
+        }
+        h1 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #4fc3f7;
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        button.primary {
+            background: #4fc3f7;
+            color: #000;
+        }
+        button.primary:hover {
+            background: #29b6f6;
+        }
+        button.secondary {
+            background: #555;
+            color: #fff;
+        }
+        button.secondary:hover {
+            background: #666;
+        }
+        #stats {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        #loading.hidden {
+            display: none;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #333;
+            border-top-color: #4fc3f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    
+    <div id="loading">
+        <div class="spinner"></div>
+        <p>Loading MeshLib Core...</p>
+    </div>
+    
+    <div id="ui">
+        <h1>🔷 MeshLib Core Demo</h1>
+        
+        <div class="control-group">
+            <label>Primitive Shape</label>
+            <select id="primitive">
+                <option value="sphere">Sphere</option>
+                <option value="cube">Cube</option>
+                <option value="cylinder">Cylinder</option>
+                <option value="torus">Torus</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label>Decimation (Max Error): <span id="decimateValue">0.01</span></label>
+            <input type="range" id="decimate" min="0.001" max="0.1" step="0.001" value="0.01">
+        </div>
+        
+        <div class="control-group">
+            <label>Subdivision (Max Edge): <span id="subdivideValue">0.1</span></label>
+            <input type="range" id="subdivide" min="0.05" max="0.5" step="0.01" value="0.1">
+        </div>
+        
+        <button class="primary" id="btnCreate">Create Mesh</button>
+        <button class="secondary" id="btnDecimate">Decimate</button>
+        <button class="secondary" id="btnSubdivide">Subdivide</button>
+        <button class="secondary" id="btnSmooth">Smooth</button>
+        <button class="secondary" id="btnBoolean">Boolean (Union with Sphere)</button>
+        
+        <div id="stats">
+            <p>Vertices: <span id="vertCount">0</span></p>
+            <p>Faces: <span id="faceCount">0</span></p>
+            <p>MeshLib Version: <span id="version">-</span></p>
+        </div>
+    </div>
+    
+    <!-- Import Map for ES Modules -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        
+        // MeshLib WASM module will be loaded here
+        let MeshLib = null;
+        let currentMesh = null;
+        let threeMesh = null;
+        
+        // Three.js setup
+        const container = document.getElementById('container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(0x1a1a2e);
+        container.appendChild(renderer.domElement);
+        
+        // Controls
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+        
+        const backLight = new THREE.DirectionalLight(0x4fc3f7, 0.3);
+        backLight.position.set(-5, -5, -5);
+        scene.add(backLight);
+        
+        // Grid
+        const gridHelper = new THREE.GridHelper(10, 10, 0x444444, 0x333333);
+        scene.add(gridHelper);
+        
+        // Camera position
+        camera.position.set(3, 3, 3);
+        camera.lookAt(0, 0, 0);
+        
+        // Material
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x4fc3f7,
+            metalness: 0.3,
+            roughness: 0.7,
+            wireframe: false,
+            side: THREE.DoubleSide
+        });
+        
+        // Convert MeshLib mesh to Three.js geometry
+        function meshLibToThreeGeometry(mlMesh) {
+            const geometry = new THREE.BufferGeometry();
+            
+            const vertices = mlMesh.getVertices();
+            const indices = mlMesh.getIndices();
+            
+            geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+            
+            if (indices.length > 0) {
+                geometry.setIndex(new THREE.BufferAttribute(indices, 1));
+            }
+            
+            geometry.computeVertexNormals();
+            return geometry;
+        }
+        
+        // Update stats display
+        function updateStats() {
+            if (currentMesh) {
+                document.getElementById('vertCount').textContent = currentMesh.numVertices();
+                document.getElementById('faceCount').textContent = currentMesh.numFaces();
+            }
+        }
+        
+        // Create mesh from primitive type
+        function createPrimitive(type) {
+            if (currentMesh) {
+                currentMesh.delete();
+            }
+            
+            switch (type) {
+                case 'sphere':
+                    currentMesh = MeshLib.makeUVSphere(1.0, 32, 32);
+                    break;
+                case 'cube':
+                    currentMesh = MeshLib.makeCube(new MeshLib.Vector3f(1, 1, 1));
+                    break;
+                case 'cylinder':
+                    currentMesh = MeshLib.makeCylinder(0.5, 2.0, 32);
+                    break;
+                case 'torus':
+                    currentMesh = MeshLib.makeTorus(0.8, 0.3, 32, 16);
+                    break;
+            }
+            
+            updateThreeMesh();
+            updateStats();
+        }
+        
+        // Update Three.js mesh from MeshLib mesh
+        function updateThreeMesh() {
+            if (threeMesh) {
+                threeMesh.geometry.dispose();
+                scene.remove(threeMesh);
+            }
+            
+            if (currentMesh) {
+                const geometry = meshLibToThreeGeometry(currentMesh);
+                threeMesh = new THREE.Mesh(geometry, material);
+                scene.add(threeMesh);
+            }
+        }
+        
+        // UI Event handlers
+        document.getElementById('decimate').addEventListener('input', (e) => {
+            document.getElementById('decimateValue').textContent = e.target.value;
+        });
+        
+        document.getElementById('subdivide').addEventListener('input', (e) => {
+            document.getElementById('subdivideValue').textContent = e.target.value;
+        });
+        
+        document.getElementById('btnCreate').addEventListener('click', () => {
+            const type = document.getElementById('primitive').value;
+            createPrimitive(type);
+        });
+        
+        document.getElementById('btnDecimate').addEventListener('click', () => {
+            if (!currentMesh) return;
+            
+            const settings = new MeshLib.DecimateSettings();
+            settings.maxError = parseFloat(document.getElementById('decimate').value);
+            settings.packMesh = true;
+            
+            MeshLib.decimateMesh(currentMesh, settings);
+            settings.delete();
+            
+            updateThreeMesh();
+            updateStats();
+        });
+        
+        document.getElementById('btnSubdivide').addEventListener('click', () => {
+            if (!currentMesh) return;
+            
+            const settings = new MeshLib.SubdivideSettings();
+            settings.maxEdgeLen = parseFloat(document.getElementById('subdivide').value);
+            settings.maxEdgeSplits = 10000;
+            
+            MeshLib.subdivideMesh(currentMesh, settings);
+            settings.delete();
+            
+            updateThreeMesh();
+            updateStats();
+        });
+        
+        document.getElementById('btnSmooth').addEventListener('click', () => {
+            if (!currentMesh) return;
+            
+            const params = new MeshLib.MeshRelaxParams();
+            params.iterations = 3;
+            params.force = 0.5;
+            
+            MeshLib.relaxMesh(currentMesh, params);
+            params.delete();
+            
+            updateThreeMesh();
+            updateStats();
+        });
+        
+        document.getElementById('btnBoolean').addEventListener('click', () => {
+            if (!currentMesh) return;
+            
+            // Create a small sphere for boolean operation
+            const sphere = MeshLib.makeUVSphere(0.5, 16, 16);
+            
+            // Translate the sphere
+            const xf = MeshLib.AffineXf3f.translation(new MeshLib.Vector3f(0.7, 0, 0));
+            
+            // Perform boolean union
+            const result = MeshLib.boolean(currentMesh, sphere, MeshLib.BooleanOperation.Union, xf);
+            
+            if (result.valid()) {
+                currentMesh.delete();
+                currentMesh = result.mesh;
+                updateThreeMesh();
+                updateStats();
+            } else {
+                console.error('Boolean operation failed:', result.errorString);
+            }
+            
+            sphere.delete();
+            xf.delete();
+        });
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Initialize
+        async function init() {
+            try {
+                // Load MeshLib WASM module
+                // In production, this would be: MeshLib = await MeshLibCore();
+                // For demo purposes, we'll simulate it
+                
+                // Simulated loading delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // For demo without actual WASM, create mock objects
+                // In real usage, uncomment the import below:
+                // const MeshLibCore = await import('./meshlib.js');
+                // MeshLib = await MeshLibCore.default();
+                
+                console.log('MeshLib Core would be loaded here');
+                
+                // Hide loading indicator
+                document.getElementById('loading').classList.add('hidden');
+                
+                // Show version (placeholder)
+                document.getElementById('version').textContent = '1.0.0 (demo)';
+                
+                // Create default mesh using Three.js for demo
+                // In real usage with MeshLib, call: createPrimitive('sphere');
+                const geometry = new THREE.SphereGeometry(1, 32, 32);
+                threeMesh = new THREE.Mesh(geometry, material);
+                scene.add(threeMesh);
+                
+                document.getElementById('vertCount').textContent = geometry.attributes.position.count;
+                document.getElementById('faceCount').textContent = geometry.index ? geometry.index.count / 3 : 0;
+                
+                // Start animation
+                animate();
+                
+            } catch (error) {
+                console.error('Failed to initialize MeshLib:', error);
+                document.getElementById('loading').innerHTML = 
+                    '<p style="color: #f44336;">Failed to load MeshLib Core</p>';
+            }
+        }
+        
+        init();
+    </script>
+</body>
+</html>
