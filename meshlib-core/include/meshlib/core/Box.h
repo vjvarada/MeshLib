@@ -159,6 +159,42 @@ struct Box3 {
         }
         return box;
     }
+    
+    /// Compute signed distance from a point to the box surface
+    /// Negative inside, positive outside
+    T signedDistance(const Vector3<T>& p) const noexcept {
+        if (!valid()) return std::numeric_limits<T>::max();
+        
+        // Compute distance to each face
+        Vector3<T> d1 = p - min;  // distance to min faces
+        Vector3<T> d2 = max - p;  // distance to max faces
+        
+        if (contains(p)) {
+            // Inside: return negative of distance to nearest face
+            T minDist = std::min({d1.x, d1.y, d1.z, d2.x, d2.y, d2.z});
+            return -minDist;
+        }
+        
+        // Outside: compute distance to nearest point on box
+        Vector3<T> closest{
+            std::clamp(p.x, min.x, max.x),
+            std::clamp(p.y, min.y, max.y),
+            std::clamp(p.z, min.z, max.z)
+        };
+        return (p - closest).length();
+    }
+    
+    /// Compute squared distance from a point to the box surface
+    T squaredDistanceToPoint(const Vector3<T>& p) const noexcept {
+        if (!valid()) return std::numeric_limits<T>::max();
+        
+        Vector3<T> closest{
+            std::clamp(p.x, min.x, max.x),
+            std::clamp(p.y, min.y, max.y),
+            std::clamp(p.z, min.z, max.z)
+        };
+        return (p - closest).lengthSq();
+    }
 };
 
 // Type aliases

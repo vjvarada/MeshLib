@@ -342,8 +342,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\Mesh.cpp" />
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\MeshTopology.cpp" />
     <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\PointCloud.cpp" />
     <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\Primitives.cpp" />
+    <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\spatial\AABBTree.cpp" />
     <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\Boolean.cpp" />
     <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\Decimate.cpp" />
     <ClCompile Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\FillHole.cpp" />
@@ -357,9 +359,27 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Matrix.h" />
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Box.h" />
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Id.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\BitSet.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\IdVector.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Quaternion.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\AffineXf.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Line.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Plane.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Sphere.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\UnionFind.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\Expected.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\MeshTriPoint.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\MeshEdgePoint.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\MeshProject.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\MeshComponents.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\MeshNormals.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\core\MeshDistance.h" />
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\mesh\Mesh.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\mesh\MeshTopology.h" />
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\mesh\PointCloud.h" />
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\mesh\Primitives.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\spatial\AABBTreeNode.h" />
+    <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\spatial\AABBTree.h" />
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\Boolean.h" />
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\Decimate.h" />
     <ClInclude Include="C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\include\meshlib\algorithms\FillHole.h" />

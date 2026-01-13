@@ -107,10 +107,14 @@ configure_file(
 # =============================================================================
 
 set(MESHLIB_CORE_SOURCES
-    # Mesh data structures
+    # Core data structures
     src/mesh/Mesh.cpp
+    src/mesh/MeshTopology.cpp
     src/mesh/PointCloud.cpp
     src/mesh/Primitives.cpp
+    
+    # Spatial indexing
+    src/spatial/AABBTree.cpp
     
     # Algorithms
     src/algorithms/Boolean.cpp
@@ -131,9 +135,27 @@ set(MESHLIB_CORE_HEADERS
     include/meshlib/core/Matrix.h
     include/meshlib/core/Box.h
     include/meshlib/core/Id.h
+    include/meshlib/core/BitSet.h
+    include/meshlib/core/IdVector.h
+    include/meshlib/core/Quaternion.h
+    include/meshlib/core/AffineXf.h
+    include/meshlib/core/Line.h
+    include/meshlib/core/Plane.h
+    include/meshlib/core/Sphere.h
+    include/meshlib/core/UnionFind.h
+    include/meshlib/core/Expected.h
+    include/meshlib/core/MeshTriPoint.h
+    include/meshlib/core/MeshEdgePoint.h
+    include/meshlib/core/MeshProject.h
+    include/meshlib/core/MeshComponents.h
+    include/meshlib/core/MeshNormals.h
+    include/meshlib/core/MeshDistance.h
     include/meshlib/mesh/Mesh.h
+    include/meshlib/mesh/MeshTopology.h
     include/meshlib/mesh/PointCloud.h
     include/meshlib/mesh/Primitives.h
+    include/meshlib/spatial/AABBTreeNode.h
+    include/meshlib/spatial/AABBTree.h
     include/meshlib/algorithms/Boolean.h
     include/meshlib/algorithms/Decimate.h
     include/meshlib/algorithms/FillHole.h

@@ -1,6 +1,8 @@
 C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\Mesh.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\meshlib_core.dir\Release\Mesh.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\MeshTopology.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\meshlib_core.dir\Release\MeshTopology.obj
 C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\PointCloud.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\meshlib_core.dir\Release\PointCloud.obj
 C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\mesh\Primitives.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\meshlib_core.dir\Release\Primitives.obj
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\spatial\AABBTree.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\meshlib_core.dir\Release\AABBTree.obj
 C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\Boolean.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\meshlib_core.dir\Release\Boolean.obj
 C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\Decimate.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\meshlib_core.dir\Release\Decimate.obj
 C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\src\algorithms\FillHole.cpp;C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\meshlib-core\build\meshlib_core.dir\Release\FillHole.obj

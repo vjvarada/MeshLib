@@ -1,0 +1,46 @@
+# Build directories
+build/
+out/
+cmake-build-*/
+
+# IDE files
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+
+# Third-party libraries (fetched by CMake FetchContent)
+thirdparty/eigen/
+thirdparty/googletest/
+thirdparty/pybind11/
+thirdparty/parallel-hashmap/
+thirdparty/expected/
+
+# Keep thirdparty folder structure
+!thirdparty/.gitkeep
+
+# Compiled files
+*.obj
+*.o
+*.lib
+*.a
+*.dll
+*.so
+*.dylib
+*.exe
+*.pdb
+*.ilk
+*.exp
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.egg-info/
+dist/
+*.whl
+
+# Test output
+Testing/
+*.log

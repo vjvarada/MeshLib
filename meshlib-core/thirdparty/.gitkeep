@@ -1,0 +1,11 @@
+# Third-party dependencies
+
+This folder contains third-party libraries used by meshlib-core.
+These are fetched automatically by CMake's FetchContent if not present.
+
+To populate manually, clone these repositories:
+- eigen: https://gitlab.com/libeigen/eigen
+- googletest: https://github.com/google/googletest
+- pybind11: https://github.com/pybind/pybind11
+- parallel-hashmap: https://github.com/greg7mdp/parallel-hashmap
+- expected: https://github.com/TartanLlama/expected

@@ -5,6 +5,7 @@
  * @brief Core type definitions for meshlib
  * 
  * This file defines the fundamental types used throughout the meshlib library.
+ * ID types (VertId, FaceId, EdgeId) are defined in Id.h
  */
 
 #include <cstddef>
@@ -20,7 +21,6 @@ template <typename T> struct Vector2;
 template <typename T> struct Vector3;
 template <typename T> struct Matrix3;
 template <typename T> struct Box3;
-template <typename T> class Id;
 
 /// Common vector types
 using Vector2f = Vector2<float>;
@@ -39,25 +39,10 @@ using Matrix3d = Matrix3<double>;
 using Box3f = Box3<float>;
 using Box3d = Box3<double>;
 
-/// Tag types for type-safe IDs
-struct VertexTag {};
-struct FaceTag {};
-struct EdgeTag {};
-struct UndirectedEdgeTag {};
-
-/// Type-safe IDs
-using VertexId = Id<VertexTag>;
-using FaceId = Id<FaceTag>;
-using EdgeId = Id<EdgeTag>;
-using UndirectedEdgeId = Id<UndirectedEdgeTag>;
-
 /// Common containers
 using VertexCoords = std::vector<Vector3f>;
 using FaceIndices = std::vector<std::array<int, 3>>;
 using Normals = std::vector<Vector3f>;
-
-/// Three vertices forming a triangle
-using ThreeVertIds = std::array<VertexId, 3>;
 
 /// Triangle index triplet (3 vertex indices)
 using Triangle = std::array<int, 3>;

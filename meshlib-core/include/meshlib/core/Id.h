@@ -2,97 +2,276 @@
 
 /**
  * @file Id.h
- * @brief Type-safe ID class for mesh elements
+ * @brief Type-safe identifier types for mesh elements
  * 
- * Provides type-safe indexing for vertices, faces, and edges.
+ * Industrial-strength port of MeshLib's MRId.h providing type-safe identifiers
+ * that prevent mixing faces, edges, and vertices at compile time.
+ * 
+ * Key features:
+ * - Type-safe: Can't mix VertId with FaceId
+ * - Half-edge support: EdgeId has sym(), undirected() methods
+ * - Invalid state: Default-constructed IDs are invalid (-1)
  */
 
+#include "meshlib/config.h"
+#include <cassert>
 #include <cstdint>
+#include <cstddef>
+#include <type_traits>
 #include <functional>
-#include <limits>
 
 namespace meshlib {
 
+// ==================== Tag Types ====================
+// These are empty types used to distinguish different ID types
+
+class EdgeTag;
+class UndirectedEdgeTag;
+class FaceTag;
+class VertTag;
+class NodeTag;
+
+// ==================== Primary Id Template ====================
+
 /**
- * @brief Type-safe ID for mesh elements
- * @tparam Tag A tag type to distinguish different ID types
+ * @brief Type-safe identifier for mesh elements
  * 
- * This class provides type-safe indexing to prevent mixing up
- * vertex, face, and edge indices.
+ * Prevents mixing of different element types at compile time.
+ * Invalid IDs have value -1.
+ * 
+ * @tparam T Tag type (EdgeTag, FaceTag, VertTag, etc.)
  */
-template <typename Tag>
+template <typename T>
 class Id {
 public:
-    using ValueType = int32_t;
-    static constexpr ValueType Invalid = -1;
+    using ValueType = int;
     
-    /// Default constructor creates an invalid ID
-    constexpr Id() noexcept : value_(Invalid) {}
+    /// Creates invalid ID (-1)
+    constexpr Id() noexcept : id_(-1) {}
     
-    /// Construct from integer value
-    explicit constexpr Id(ValueType value) noexcept : value_(value) {}
+    /// Creates ID with given value
+    template <typename U, std::enable_if_t<std::is_integral_v<U>, int> = 0>
+    explicit constexpr Id(U i) noexcept : id_(static_cast<ValueType>(i)) {}
     
-    /// Check if the ID is valid (non-negative)
-    constexpr bool valid() const noexcept { return value_ >= 0; }
+    /// Implicit conversion to underlying value
+    constexpr operator ValueType() const { return id_; }
     
-    /// Explicit conversion to bool (true if valid)
-    explicit constexpr operator bool() const noexcept { return valid(); }
+    /// Check if ID is valid (>= 0)
+    constexpr bool valid() const { return id_ >= 0; }
     
-    /// Get the underlying value
-    constexpr ValueType get() const noexcept { return value_; }
+    /// Explicit bool conversion
+    explicit constexpr operator bool() const { return id_ >= 0; }
     
-    /// Implicit conversion to ValueType
-    constexpr operator ValueType() const noexcept { return value_; }
-    
-    /// Get mutable reference to underlying value
-    constexpr ValueType& ref() noexcept { return value_; }
+    /// Get reference to underlying value
+    constexpr ValueType& get() noexcept { return id_; }
+    constexpr const ValueType& get() const noexcept { return id_; }
     
     // Comparison operators
-    constexpr bool operator==(Id other) const noexcept { return value_ == other.value_; }
-    constexpr bool operator!=(Id other) const noexcept { return value_ != other.value_; }
-    constexpr bool operator<(Id other) const noexcept { return value_ < other.value_; }
-    constexpr bool operator<=(Id other) const noexcept { return value_ <= other.value_; }
-    constexpr bool operator>(Id other) const noexcept { return value_ > other.value_; }
-    constexpr bool operator>=(Id other) const noexcept { return value_ >= other.value_; }
+    constexpr bool operator==(Id b) const { return id_ == b.id_; }
+    constexpr bool operator!=(Id b) const { return id_ != b.id_; }
+    constexpr bool operator<(Id b) const { return id_ < b.id_; }
+    constexpr bool operator<=(Id b) const { return id_ <= b.id_; }
+    constexpr bool operator>(Id b) const { return id_ > b.id_; }
+    constexpr bool operator>=(Id b) const { return id_ >= b.id_; }
     
-    // Arithmetic operators
-    constexpr Id& operator++() noexcept { ++value_; return *this; }
-    constexpr Id operator++(int) noexcept { Id tmp(*this); ++value_; return tmp; }
-    constexpr Id& operator--() noexcept { --value_; return *this; }
-    constexpr Id operator--(int) noexcept { Id tmp(*this); --value_; return tmp; }
+    // Prevent comparison with different Id types
+    template <typename U>
+    bool operator==(Id<U> b) const = delete;
+    template <typename U>
+    bool operator!=(Id<U> b) const = delete;
+    template <typename U>
+    bool operator<(Id<U> b) const = delete;
     
-    constexpr Id& operator+=(ValueType n) noexcept { value_ += n; return *this; }
-    constexpr Id& operator-=(ValueType n) noexcept { value_ -= n; return *this; }
+    // Increment/decrement
+    constexpr Id& operator--() { --id_; return *this; }
+    constexpr Id& operator++() { ++id_; return *this; }
+    constexpr Id operator--(int) { auto res = *this; --id_; return res; }
+    constexpr Id operator++(int) { auto res = *this; ++id_; return res; }
     
-    friend constexpr Id operator+(Id id, ValueType n) noexcept { return Id(id.value_ + n); }
-    friend constexpr Id operator-(Id id, ValueType n) noexcept { return Id(id.value_ - n); }
-    friend constexpr ValueType operator-(Id a, Id b) noexcept { return a.value_ - b.value_; }
+    // Arithmetic
+    constexpr Id& operator-=(ValueType a) { id_ -= a; return *this; }
+    constexpr Id& operator+=(ValueType a) { id_ += a; return *this; }
+    
+    constexpr Id operator+(ValueType a) const { return Id(id_ + a); }
+    constexpr Id operator-(ValueType a) const { return Id(id_ - a); }
+    friend constexpr ValueType operator-(Id a, Id b) { return a.id_ - b.id_; }
     
 private:
-    ValueType value_;
+    ValueType id_;
 };
 
-// User-defined literals for convenient ID creation
-inline constexpr Id<struct VertexTag> operator""_v(unsigned long long i) noexcept {
-    return Id<struct VertexTag>(static_cast<int32_t>(i));
-}
+// ==================== UndirectedEdgeId ====================
 
-inline constexpr Id<struct FaceTag> operator""_f(unsigned long long i) noexcept {
-    return Id<struct FaceTag>(static_cast<int32_t>(i));
-}
+// Forward declaration
+template <> class Id<UndirectedEdgeTag>;
+using UndirectedEdgeId = Id<UndirectedEdgeTag>;
 
-inline constexpr Id<struct EdgeTag> operator""_e(unsigned long long i) noexcept {
-    return Id<struct EdgeTag>(static_cast<int32_t>(i));
-}
+/**
+ * @brief Specialization for UndirectedEdgeId
+ * 
+ * Represents an undirected edge (pair of half-edges).
+ */
+template <>
+class Id<UndirectedEdgeTag> {
+public:
+    using ValueType = int;
+    
+    constexpr Id() noexcept : id_(-1) {}
+    
+    template <typename U, std::enable_if_t<std::is_integral_v<U>, int> = 0>
+    explicit constexpr Id(U i) noexcept : id_(static_cast<ValueType>(i)) {}
+    
+    constexpr operator ValueType() const { return id_; }
+    constexpr bool valid() const { return id_ >= 0; }
+    explicit constexpr operator bool() const { return id_ >= 0; }
+    constexpr ValueType& get() noexcept { return id_; }
+    constexpr const ValueType& get() const noexcept { return id_; }
+    
+    // Comparison operators
+    constexpr bool operator==(Id b) const { return id_ == b.id_; }
+    constexpr bool operator!=(Id b) const { return id_ != b.id_; }
+    constexpr bool operator<(Id b) const { return id_ < b.id_; }
+    constexpr bool operator<=(Id b) const { return id_ <= b.id_; }
+    constexpr bool operator>(Id b) const { return id_ > b.id_; }
+    constexpr bool operator>=(Id b) const { return id_ >= b.id_; }
+    
+    template <typename U>
+    bool operator==(Id<U> b) const = delete;
+    template <typename U>
+    bool operator!=(Id<U> b) const = delete;
+    template <typename U>
+    bool operator<(Id<U> b) const = delete;
+    
+    constexpr Id& operator--() { --id_; return *this; }
+    constexpr Id& operator++() { ++id_; return *this; }
+    constexpr Id operator--(int) { auto res = *this; --id_; return res; }
+    constexpr Id operator++(int) { auto res = *this; ++id_; return res; }
+    
+    constexpr Id& operator-=(ValueType a) { id_ -= a; return *this; }
+    constexpr Id& operator+=(ValueType a) { id_ += a; return *this; }
+    
+    constexpr Id operator+(ValueType a) const { return Id(id_ + a); }
+    constexpr Id operator-(ValueType a) const { return Id(id_ - a); }
+    friend constexpr ValueType operator-(Id a, Id b) { return a.id_ - b.id_; }
+    
+private:
+    ValueType id_;
+};
+
+// ==================== EdgeId (Half-Edge) ====================
+
+/**
+ * @brief Specialization for EdgeId with half-edge semantics
+ * 
+ * EdgeId stores directed half-edges. Each undirected edge has two EdgeIds:
+ * - Even EdgeIds (0, 2, 4, ...) and their sym() counterparts (1, 3, 5, ...)
+ * 
+ * Key methods:
+ * - sym(): Get the opposite direction half-edge
+ * - undirected(): Get the UndirectedEdgeId
+ * - even()/odd(): Check if this is the even or odd half-edge
+ */
+template <>
+class Id<EdgeTag> {
+public:
+    using ValueType = int;
+    
+    constexpr Id() noexcept : id_(-1) {}
+    
+    /// Construct from UndirectedEdgeId (creates the even half-edge)
+    constexpr Id(UndirectedEdgeId u) noexcept 
+        : id_(u.valid() ? (static_cast<ValueType>(u) << 1) : -1) {}
+    
+    template <typename U, std::enable_if_t<std::is_integral_v<U>, int> = 0>
+    explicit constexpr Id(U i) noexcept : id_(static_cast<ValueType>(i)) {}
+    
+    constexpr operator ValueType() const { return id_; }
+    constexpr bool valid() const { return id_ >= 0; }
+    explicit constexpr operator bool() const { return id_ >= 0; }
+    constexpr ValueType& get() noexcept { return id_; }
+    constexpr const ValueType& get() const noexcept { return id_; }
+    
+    /// Returns the symmetric (opposite direction) half-edge
+    constexpr Id sym() const { assert(valid()); return Id(id_ ^ 1); }
+    
+    /// Returns true if this is an even half-edge (id % 2 == 0)
+    constexpr bool even() const { assert(valid()); return (id_ & 1) == 0; }
+    
+    /// Returns true if this is an odd half-edge (id % 2 == 1)
+    constexpr bool odd() const { assert(valid()); return (id_ & 1) == 1; }
+    
+    /// Returns the undirected edge identifier
+    constexpr UndirectedEdgeId undirected() const { 
+        assert(valid()); 
+        return UndirectedEdgeId(id_ >> 1); 
+    }
+    
+    /// Implicit conversion to UndirectedEdgeId
+    constexpr operator UndirectedEdgeId() const { return undirected(); }
+    
+    // Comparison operators
+    constexpr bool operator==(Id b) const { return id_ == b.id_; }
+    constexpr bool operator!=(Id b) const { return id_ != b.id_; }
+    constexpr bool operator<(Id b) const { return id_ < b.id_; }
+    constexpr bool operator<=(Id b) const { return id_ <= b.id_; }
+    constexpr bool operator>(Id b) const { return id_ > b.id_; }
+    constexpr bool operator>=(Id b) const { return id_ >= b.id_; }
+    
+    template <typename U>
+    bool operator==(Id<U> b) const = delete;
+    template <typename U>
+    bool operator!=(Id<U> b) const = delete;
+    template <typename U>
+    bool operator<(Id<U> b) const = delete;
+    
+    constexpr Id& operator--() { --id_; return *this; }
+    constexpr Id& operator++() { ++id_; return *this; }
+    constexpr Id operator--(int) { auto res = *this; --id_; return res; }
+    constexpr Id operator++(int) { auto res = *this; ++id_; return res; }
+    
+    constexpr Id& operator-=(ValueType a) { id_ -= a; return *this; }
+    constexpr Id& operator+=(ValueType a) { id_ += a; return *this; }
+    
+    constexpr Id operator+(ValueType a) const { return Id(id_ + a); }
+    constexpr Id operator-(ValueType a) const { return Id(id_ - a); }
+    friend constexpr ValueType operator-(Id a, Id b) { return a.id_ - b.id_; }
+    
+private:
+    ValueType id_;
+};
+
+// ==================== Type Aliases ====================
+
+using EdgeId = Id<EdgeTag>;
+using FaceId = Id<FaceTag>;
+using VertId = Id<VertTag>;
+using VertexId = VertId;  // Backwards compatibility alias
+using NodeId = Id<NodeTag>;
+
+// ==================== ThreeVertIds ====================
+
+/// Three vertex ids representing a triangle
+using ThreeVertIds = std::array<VertId, 3>;
+
+// ==================== Hash Support ====================
+
+template <typename T>
+struct IdHash {
+    size_t operator()(Id<T> id) const noexcept {
+        return std::hash<typename Id<T>::ValueType>{}(id.get());
+    }
+};
 
 } // namespace meshlib
 
-// Hash support for std::unordered_map/set
+// Standard library hash specializations
 namespace std {
-template <typename Tag>
-struct hash<meshlib::Id<Tag>> {
-    size_t operator()(meshlib::Id<Tag> id) const noexcept {
-        return std::hash<typename meshlib::Id<Tag>::ValueType>()(id.get());
+
+template <typename T>
+struct hash<meshlib::Id<T>> {
+    size_t operator()(meshlib::Id<T> id) const noexcept {
+        return std::hash<typename meshlib::Id<T>::ValueType>{}(id.get());
     }
 };
+
 } // namespace std
