@@ -168,10 +168,11 @@ function projectTo2D(loops3D, lx, ly) {
 }
 
 function buildPolyArgs(loops2D) {
-  const rings = loops2D
-    .filter(l => l.length >= 3)
-    .map(l => l.map(p => [p.x, p.y]))
+  const allRings = loops2D.filter(l => l.length >= 3)
+  const rings = allRings.map(l => l.map(p => [p.x, p.y]))
   if (!rings.length) return []
+  const droppedBySize = loops2D.length - allRings.length
+  if (droppedBySize > 0) console.warn(`[buildPolyArgs] ${droppedBySize} ring(s) dropped (< 3 points)`)
 
   function area2(r) {
     let a = 0
@@ -234,6 +235,7 @@ function buildPolyArgs(loops2D) {
       if (a < bestArea && pip(px, py, oriented[oi])) { bestArea = a; bestPoly = polys[k] }
     }
     if (bestPoly) bestPoly.push(oriented[i])
+    else console.warn(`[buildPolyArgs] orphan hole ring (depth=${depths[i]}) — no containing outer found. Ring pt: ${px.toFixed(3)},${py.toFixed(3)}`)
   }
 
   // Deeper nesting (depth 2 = island inside a hole) → recurse as separate outer poly
@@ -396,20 +398,30 @@ export function extractContour(geometry, direction, { layerHeight = 0.2 } = {}) 
   const slices = []
   let totalSlices = 0
   let slicesWithContours = 0
+  const skipLog = { noSegments: 0, noLoops: 0, noPolyArgs: 0, unionFail: 0, noShapes: 0 }
+  const skipDetails = []
 
   for (let planeD = eMin + layerHeight * 0.5; planeD < eMax; planeD += layerHeight) {
     totalSlices++
     const segments = planeMeshIntersectBVH(bvh, dir, planeD)
-    if (segments.length === 0) continue
+    if (segments.length === 0) { skipLog.noSegments++; continue }
     const loops3D = stitchSegments(segments, eps)
-    if (loops3D.length === 0) continue
+    if (loops3D.length === 0) {
+      skipLog.noLoops++
+      skipDetails.push(`  z=${planeD.toFixed(4)}: ${segments.length} segs but 0 loops (stitching failed)`)
+      continue
+    }
 
     allLoops3D.push(...loops3D)
     slicesWithContours++
 
     const loops2D = projectTo2D(loops3D, lx, ly)
     const polyArgs = buildPolyArgs(loops2D)
-    if (polyArgs.length === 0) continue
+    if (polyArgs.length === 0) {
+      skipLog.noPolyArgs++
+      skipDetails.push(`  z=${planeD.toFixed(4)}: ${loops3D.length} loops but buildPolyArgs returned [] (all rings orphaned?)`)
+      continue
+    }
 
     let unionResult
     try {
@@ -419,22 +431,36 @@ export function extractContour(geometry, direction, { layerHeight = 0.2 } = {}) 
         ? polyArgs[0]
         : polygonClipping.union(...polyArgs)
     } catch (e) {
+      skipLog.unionFail++
       console.warn(`[contour] slice union at ${planeD.toFixed(3)} failed:`, e.message)
+      skipDetails.push(`  z=${planeD.toFixed(4)}: polygon-clipping union threw — ${e.message}`)
       unionResult = polyArgs[0]
     }
 
     const shapes = multiPolyToShapes(unionResult)
-    if (shapes?.length > 0) {
-      slices.push({
-        planeD,
-        poly: unionResult,   // raw MultiPolygon — kept for accumulateContours
-        shapes,
-        signature: sliceSignature(unionResult),
-      })
+    if (!shapes?.length) {
+      skipLog.noShapes++
+      skipDetails.push(`  z=${planeD.toFixed(4)}: unionResult valid but multiPolyToShapes returned [] — unionResult=${JSON.stringify(unionResult).slice(0,120)}`)
+      continue
     }
+    slices.push({
+      planeD,
+      poly: unionResult,   // raw MultiPolygon — kept for accumulateContours
+      shapes,
+      signature: sliceSignature(unionResult),
+    })
   }
 
   console.log(`[contour] ${slicesWithContours}/${totalSlices} slices, ${allLoops3D.length} loops, ${slices.length} profiles`)
+  console.log('[contour] skip breakdown:', skipLog)
+  if (skipDetails.length > 0) console.warn('[contour] skipped slices:\n' + skipDetails.join('\n'))
+
+  // Warn about gaps in the slice sequence (consecutive planeDiffs > 1.5×layerHeight)
+  for (let i = 1; i < slices.length; i++) {
+    const gap = slices[i].planeD - slices[i-1].planeD
+    if (gap > layerHeight * 1.5)
+      console.warn(`[contour] GAP between slice ${i-1} (z=${slices[i-1].planeD.toFixed(3)}) and ${i} (z=${slices[i].planeD.toFixed(3)}): ${gap.toFixed(3)} (${(gap/layerHeight).toFixed(1)}× layerHeight)`)
+  }
 
   if (slices.length === 0)
     throw new Error('No cross-section found. Try a different sweep direction.')
@@ -493,27 +519,40 @@ export function accumulateContours(contour) {
 
   let accPoly = null
   const accSlices = []
+  let accFailCount = 0
+  let accEmptyShapeCount = 0
 
   for (const slice of slices) {
+    const prevPoly = accPoly
     try {
       accPoly = accPoly === null
         ? slice.poly
         : polygonClipping.union(accPoly, slice.poly)
     } catch (e) {
-      console.warn(`[accumulate] union failed at ${slice.planeD.toFixed(3)}:`, e.message)
+      accFailCount++
+      console.warn(`[accumulate] union failed at z=${slice.planeD.toFixed(3)}:`, e.message,
+        '\n  accPoly polygons:', prevPoly?.length,
+        '\n  slice.poly polygons:', slice.poly?.length,
+        '\n  slice.poly sample:', JSON.stringify(slice.poly).slice(0, 200))
       // keep accPoly as-is (no regression)
     }
 
     const shapes = multiPolyToShapes(accPoly)
-    if (shapes?.length > 0) {
-      accSlices.push({
-        planeD:    slice.planeD,
-        poly:      accPoly,
-        shapes,
-        signature: sliceSignature(accPoly),
-      })
+    if (!shapes?.length) {
+      accEmptyShapeCount++
+      console.warn(`[accumulate] z=${slice.planeD.toFixed(3)}: accPoly produced no shapes — accPoly=`, JSON.stringify(accPoly).slice(0,200))
+      continue
     }
+    accSlices.push({
+      planeD:    slice.planeD,
+      poly:      accPoly,
+      shapes,
+      signature: sliceSignature(accPoly),
+    })
   }
+
+  if (accFailCount > 0)    console.warn(`[accumulate] ${accFailCount} union failures`)
+  if (accEmptyShapeCount > 0) console.warn(`[accumulate] ${accEmptyShapeCount} slices dropped (accPoly→no shapes)`)
 
   if (accSlices.length === 0) throw new Error('Accumulation produced no valid slices.')
 
@@ -559,6 +598,22 @@ export function accumulateContours(contour) {
 
   console.log(`[accumulate] ${accSlices.length} slices -> ${mergedSlices.length} merged extrusions`)
 
+  // Warn about gaps in the accumulated slice sequence
+  for (let i = 1; i < accSlices.length; i++) {
+    const gap = accSlices[i].planeD - accSlices[i-1].planeD
+    if (gap > layerHeight * 1.5)
+      console.warn(`[accumulate] GAP between acc slice ${i-1} (z=${accSlices[i-1].planeD.toFixed(3)}) and ${i} (z=${accSlices[i].planeD.toFixed(3)}): ${gap.toFixed(3)} = ${(gap/layerHeight).toFixed(1)}× layerHeight`)
+  }
+
+  // Log merged slice table
+  console.groupCollapsed(`[accumulate] merged slice table (${mergedSlices.length} slabs)`)
+  mergedSlices.forEach((s, i) => {
+    const height = s.planeDEnd - s.planeDStart
+    const rings  = s.poly?.reduce((a, p) => a + p.length, 0) ?? 0
+    console.log(`  [${i}] z=${s.planeDStart.toFixed(3)}–${s.planeDEnd.toFixed(3)} h=${height.toFixed(3)} rings=${rings}`)
+  })
+  console.groupEnd()
+
   const newStats = {
     ...stats,
     profileShapes:    accSlices.length,
@@ -567,6 +622,77 @@ export function accumulateContours(contour) {
   }
 
   return { ...contour, loops3D: accLoops3D, slices: accSlices, mergedSlices, stats: newStats }
+}
+
+// ── Polygon simplification for clipping robustness ───────────────────────────
+// Quantizes ring coordinates to `tol` units, merging near-coincident vertices.
+// This prevents polygon-clipping's recursive sweep from stack-overflowing on
+// polygons that share thousands of near-identical edge events.
+function simplifyRing(ring, tol) {
+  const inv = 1 / tol
+  const out = []
+  for (const pt of ring) {
+    const x = Math.round(pt[0] * inv) / inv
+    const y = Math.round(pt[1] * inv) / inv
+    const prev = out[out.length - 1]
+    if (!prev || prev[0] !== x || prev[1] !== y) out.push([x, y])
+  }
+  // Remove closing duplicate
+  if (out.length > 1) {
+    const [fx, fy] = out[0], [lx, ly] = out[out.length - 1]
+    if (fx === lx && fy === ly) out.pop()
+  }
+  return out.length >= 3 ? out : null
+}
+
+function simplifyMultiPoly(mp, tol) {
+  const result = []
+  for (const poly of mp) {
+    const rings = poly.map(r => simplifyRing(r, tol)).filter(Boolean)
+    if (rings.length > 0) result.push(rings)
+  }
+  return result.length > 0 ? result : null
+}
+
+// Compute polygon difference with automatic retry on numerical failures.
+// polygon-clipping can fail with:
+//   - "Maximum call stack size exceeded"  — too many near-coincident edge events
+//   - "Unable to complete output ring…"   — floating-point noise creates open rings
+// Both are cured by quantizing coordinates to merge near-coincident vertices.
+// We try progressively coarser tolerances until one works or all fail.
+function safeDifference(polyA, polyB, label) {
+  const isRetryable = msg =>
+    msg?.toLowerCase().includes('call stack') ||
+    msg?.toLowerCase().includes('unable to complete output ring')
+
+  // First try at full precision
+  try {
+    return polygonClipping.difference(polyA, polyB)
+  } catch (e0) {
+    if (!isRetryable(e0.message)) {
+      console.warn(`[loft] shelf diff failed at ${label}: ${e0.message}`)
+      return []
+    }
+  }
+
+  // Retry with progressively coarser quantization
+  for (const tol of [1e-4, 1e-3, 1e-2]) {
+    try {
+      const a = simplifyMultiPoly(polyA, tol) ?? polyA
+      const b = simplifyMultiPoly(polyB, tol) ?? polyB
+      const result = polygonClipping.difference(a, b)
+      console.warn(`[loft] shelf diff retry succeeded at tol=${tol} for ${label}`)
+      return result
+    } catch (e) {
+      if (!isRetryable(e.message)) {
+        console.warn(`[loft] shelf diff non-retryable error at tol=${tol} for ${label}: ${e.message}`)
+        return []
+      }
+    }
+  }
+
+  console.warn(`[loft] shelf diff failed after all retries for ${label}`)
+  return []
 }
 
 /**
@@ -609,11 +735,14 @@ export function loftContoursToMesh(contour) {
   }
 
   // ── Cap triangulation ─────────────────────────────────────────────────────
-  // normalSign: +1 → faces +dir3 (top / upward shelf), -1 → faces -dir3 (bottom)
-  function triangulateCap(multiPoly, h, normalSign) {
+  // normalSign: +1 → faces +dir3 (top cap / ceiling of a recess)
+  //             -1 → faces -dir3 (bottom cap / underside of a ledge)
+  // Returns the number of triangles emitted.
+  function triangulateCap(multiPoly, h, normalSign, label) {
     const nx = normalSign * d3x
     const ny = normalSign * d3y
     const nz = normalSign * d3z
+    let triEmitted = 0
     for (const polygon of multiPoly) {
       if (!polygon?.length) continue
       const outer = polygon[0]
@@ -638,7 +767,22 @@ export function loftContoursToMesh(contour) {
 
       if (verts.length < 6) continue  // fewer than 3 vertices
 
+      // Pre-filter degenerate/zero-area polygons before calling earcut.
+      // polygon-clipping.difference() can return collinear-vertex slivers (area≈0)
+      // when two accumulated contours barely differ — earcut returns [] for these.
+      const nv2 = verts.length >> 1
+      let a2 = 0
+      for (let k = 0; k < nv2; k++) {
+        const k2 = k * 2, j2 = ((k + 1) % nv2) * 2
+        a2 += verts[k2] * verts[j2 + 1] - verts[j2] * verts[k2 + 1]
+      }
+      if (Math.abs(a2) < 1e-8) continue  // zero-area sliver — silently skip
+
       const indices = earcut(verts, holeIdxs.length > 0 ? holeIdxs : null)
+      if (indices.length === 0) {
+        if (label) console.warn(`[loft] earcut=0 for ${label} — pts=${nv2} holes=${polygon.length-1} area2=${a2.toFixed(6)}\n  verts: ${JSON.stringify(verts)}`)
+        continue
+      }
       for (let t = 0; t < indices.length; t += 3) {
         // Flip winding for downward-facing cap so normal points -dir3
         const ia = indices[t]
@@ -648,8 +792,10 @@ export function loftContoursToMesh(contour) {
         pushV(verts[ib*2], verts[ib*2+1], h)
         pushV(verts[ic*2], verts[ic*2+1], h)
         normals.push(nx,ny,nz, nx,ny,nz, nx,ny,nz)
+        triEmitted++
       }
     }
+    return triEmitted
   }
 
   // ── Vertical wall quads ───────────────────────────────────────────────────
@@ -708,8 +854,18 @@ export function loftContoursToMesh(contour) {
   // ── Main staircase loop ───────────────────────────────────────────────────
   const hBottom = mergedSlices[0].planeDStart - layerHeight * 0.5
 
+  // Warn about gaps between consecutive merged slices — these become holes in the mesh
+  for (let i = 1; i < mergedSlices.length; i++) {
+    const gap = mergedSlices[i].planeDStart - mergedSlices[i-1].planeDEnd
+    if (gap > layerHeight * 1.1)
+      console.warn(`[loft] UNCONNECTED GAP between slab ${i-1} (end=${mergedSlices[i-1].planeDEnd.toFixed(3)}) and slab ${i} (start=${mergedSlices[i].planeDStart.toFixed(3)}): gap=${gap.toFixed(3)} — no wall geometry will span this region`)
+  }
+
   // Bottom cap (faces -dir3)
-  triangulateCap(mergedSlices[0].poly, hBottom, -1)
+  triangulateCap(mergedSlices[0].poly, hBottom, -1, 'bottom-cap')
+
+  let shelfsMissing = 0
+  let shelfsGenerated = 0
 
   for (let i = 0; i < mergedSlices.length; i++) {
     const slab = mergedSlices[i]
@@ -724,26 +880,36 @@ export function loftContoursToMesh(contour) {
       }
     }
 
-    // Shelf at the top interface with the next slab
+    // Shelf at the top interface with the next slab.
+    // upShelf   = new area (grows outward or hole shrinks): faces -dir3 (underside of ledge)
+    // downShelf = lost area (rare for accumulated):          faces +dir3 (ceiling of recess)
     if (i + 1 < mergedSlices.length) {
       const nextPoly = mergedSlices[i + 1].poly
+      const zLabel   = `slab${i}→${i+1} z=${hHigh.toFixed(3)}`
 
-      // Upward shelf: area of nextPoly not in thisPoly (solid grew outward)
       let upShelf = []
-      try { upShelf = polygonClipping.difference(nextPoly, slab.poly) } catch (_) {}
-      if (upShelf.length > 0) triangulateCap(upShelf, hHigh, +1)
+      upShelf = safeDifference(nextPoly, slab.poly, `up ${zLabel}`)
+      if (upShelf.length > 0) {
+        const n = triangulateCap(upShelf, hHigh, -1, `upShelf ${zLabel}`)
+        if (n > 0) shelfsGenerated++
+        else { console.warn(`[loft] upShelf at ${zLabel}: difference returned ${upShelf.length} polygon(s) but earcut produced 0 triangles`); shelfsMissing++ }
+      }
 
-      // Downward shelf: area of thisPoly not in nextPoly (rare for accumulated)
       let downShelf = []
-      try { downShelf = polygonClipping.difference(slab.poly, nextPoly) } catch (_) {}
-      if (downShelf.length > 0) triangulateCap(downShelf, hHigh, -1)
+      downShelf = safeDifference(slab.poly, nextPoly, `down ${zLabel}`)
+      if (downShelf.length > 0) {
+        triangulateCap(downShelf, hHigh, +1, `downShelf ${zLabel}`)
+      }
     }
   }
+
+  if (shelfsMissing > 0) console.warn(`[loft] ${shelfsMissing} shelf(ves) missing/degenerate out of ${mergedSlices.length - 1} transitions`)
+  console.log(`[loft] ${shelfsGenerated}/${mergedSlices.length - 1} shelf transitions generated`)
 
   // Top cap (faces +dir3)
   const last = mergedSlices[mergedSlices.length - 1]
   const hTop = last.planeDEnd + layerHeight * 0.5
-  triangulateCap(last.poly, hTop, +1)
+  triangulateCap(last.poly, hTop, +1, 'top-cap')
 
   const posArr = new Float32Array(positions)
   const norArr = new Float32Array(normals)
@@ -752,7 +918,9 @@ export function loftContoursToMesh(contour) {
   geom.setAttribute('position', new THREE.BufferAttribute(posArr, 3))
   geom.setAttribute('normal',   new THREE.BufferAttribute(norArr, 3))
 
-  console.log(`[loft] ${posArr.length / 9} triangles, ${posArr.length / 3} vertices`)
+  const triCount = posArr.length / 9
+  console.log(`[loft] ${triCount} triangles, ${posArr.length / 3} vertices`)
+  if (triCount === 0) console.error('[loft] Zero triangles produced — check merged slices have valid poly')
   return geom
 }
 
