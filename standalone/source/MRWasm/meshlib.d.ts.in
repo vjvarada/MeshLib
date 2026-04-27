@@ -1,0 +1,71 @@
+﻿/**
+ * MeshLib WASM TypeScript Definitions
+ * Auto-generated from MRMeshC headers
+ */
+
+declare module 'meshlib' {
+    // Core types
+    export interface MRMesh {
+        ptr: number;
+    }
+    
+    export interface MRVector3f {
+        x: number;
+        y: number;
+        z: number;
+    }
+    
+    export interface MRBox3f {
+        min: MRVector3f;
+        max: MRVector3f;
+    }
+    
+    // Module interface
+    export interface MeshLibModule {
+        // Memory management
+        _malloc(size: number): number;
+        _free(ptr: number): void;
+        
+        // Mesh creation
+        mrMakeCube(base: MRVector3f, size: MRVector3f): MRMesh;
+        mrMakeSphere(center: MRVector3f, radius: number): MRMesh;
+        mrMakeTorus(center: MRVector3f, primaryRadius: number, secondaryRadius: number): MRMesh;
+        
+        // Mesh I/O
+        mrMeshLoadFromAnySupportedFormat(path: string): MRMesh;
+        mrMeshSaveToAnySupportedFormat(mesh: MRMesh, path: string): boolean;
+        
+        // Mesh operations
+        mrMeshBoolean(meshA: MRMesh, meshB: MRMesh, operation: number): MRMesh;
+        mrMeshDecimate(mesh: MRMesh, maxTriangles: number): MRMesh;
+        mrMeshOffset(mesh: MRMesh, distance: number): MRMesh;
+        mrMeshFillHoles(mesh: MRMesh): void;
+        mrMeshRelax(mesh: MRMesh, iterations: number): void;
+        
+        // Mesh properties
+        mrMeshGetBoundingBox(mesh: MRMesh): MRBox3f;
+        mrMeshGetVolume(mesh: MRMesh): number;
+        mrMeshGetArea(mesh: MRMesh): number;
+        mrMeshGetNumVertices(mesh: MRMesh): number;
+        mrMeshGetNumFaces(mesh: MRMesh): number;
+        
+        // Cleanup
+        mrMeshFree(mesh: MRMesh): void;
+        
+        // Helper methods
+        ccall(name: string, returnType: string, argTypes: string[], args: any[]): any;
+        cwrap(name: string, returnType: string, argTypes: string[]): Function;
+        
+        // Emscripten utilities
+        HEAPF32: Float32Array;
+        HEAPU8: Uint8Array;
+        HEAPU32: Uint32Array;
+        FS: any;
+    }
+    
+    export function initMeshLib(config?: {
+        wasmPath?: string;
+        onProgress?: (progress: number) => void;
+        onReady?: () => void;
+    }): Promise<MeshLibModule>;
+}

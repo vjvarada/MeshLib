@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools >= 61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meshlib-standalone"
+version = "0.1.0"
+description = "Standalone MeshLib 3D processing library with industrial I/O formats"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "MeshLib Team"}]
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: Microsoft :: Windows",
+]
+
+[tool.setuptools]
+packages = ["meshlib_standalone"]
+
+[tool.setuptools.package-data]
+meshlib_standalone = ["*.pyd", "*.dll"]
+

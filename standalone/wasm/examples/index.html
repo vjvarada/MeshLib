@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeshLib + Three.js Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            overflow: hidden;
+        }
+        #container { display: flex; height: 100vh; }
+        #sidebar {
+            width: 300px;
+            background: #16213e;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        #canvas-container { flex: 1; position: relative; }
+        canvas { display: block; }
+        h1 { font-size: 1.5rem; margin-bottom: 20px; color: #4cc9f0; }
+        h2 { font-size: 1rem; margin: 20px 0 10px 0; color: #7209b7; }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #4cc9f0; color: #16213e; }
+        .btn-primary:hover { background: #72efdd; }
+        .btn-secondary { background: #7209b7; color: #fff; }
+        .btn-secondary:hover { background: #9d4edd; }
+        .btn-danger { background: #e63946; color: #fff; }
+        .btn-danger:hover { background: #ff6b6b; }
+        .stats {
+            background: #0f3460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.85rem;
+        }
+        .stats p { margin: 5px 0; }
+        .stats span { color: #4cc9f0; }
+        #loading {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(26, 26, 46, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #4cc9f0;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #progress { margin-top: 20px; font-size: 0.9rem; }
+        input[type="file"] { display: none; }
+        .slider-container { margin: 10px 0; }
+        .slider-container label { display: block; margin-bottom: 5px; font-size: 0.85rem; }
+        .slider-container input[type="range"] { width: 100%; }
+        #info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(22, 33, 62, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+        .wireframe-toggle { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+        .wireframe-toggle input { width: 18px; height: 18px; }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <div class="spinner"></div>
+        <p id="progress">Loading...</p>
+    </div>
+
+    <div id="container">
+        <div id="sidebar">
+            <h1>MeshLib + Three.js</h1>
+            
+            <h2>File Operations</h2>
+            <button class="btn btn-primary" onclick="loadFileDialog()">Load Mesh File</button>
+            <input type="file" id="fileInput" accept=".stl,.obj,.ply" onchange="handleFileLoad(event)">
+            <button class="btn btn-secondary" onclick="exportMesh()">Export as STL</button>
+            
+            <h2>Primitives</h2>
+            <button class="btn btn-primary" onclick="createSphere()">Create Sphere</button>
+            <button class="btn btn-primary" onclick="createCube()">Create Cube</button>
+            <button class="btn btn-primary" onclick="createCylinder()">Create Cylinder</button>
+            <button class="btn btn-primary" onclick="createTorus()">Create Torus</button>
+            
+            <h2>Operations</h2>
+            <button class="btn btn-secondary" onclick="decimateMesh()">Decimate Mesh</button>
+            <div class="slider-container">
+                <label>Target triangles: <span id="decimateValue">5000</span></label>
+                <input type="range" id="decimateSlider" min="100" max="50000" value="5000" 
+                    oninput="document.getElementById('decimateValue').textContent = this.value">
+            </div>
+            <button class="btn btn-secondary" onclick="subdivideMesh()">Subdivide Mesh</button>
+            <button class="btn btn-secondary" onclick="fillHoles()">Fill Holes</button>
+            <button class="btn btn-secondary" onclick="fixMesh()">Fix Mesh</button>
+            
+            <h2>Boolean Operations</h2>
+            <button class="btn btn-secondary" onclick="booleanUnion()">Union (A + B)</button>
+            <button class="btn btn-secondary" onclick="booleanIntersection()">Intersection</button>
+            <button class="btn btn-secondary" onclick="booleanDifference()">Difference (A - B)</button>
+            <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Create two meshes first</p>
+            
+            <h2>View</h2>
+            <div class="wireframe-toggle">
+                <input type="checkbox" id="wireframeToggle" onchange="toggleWireframe(this.checked)">
+                <label for="wireframeToggle">Show Wireframe</label>
+            </div>
+            <button class="btn btn-primary" onclick="resetCamera()">Reset Camera</button>
+            <button class="btn btn-danger" onclick="clearScene()">Clear Scene</button>
+            
+            <h2>Mesh Statistics</h2>
+            <div class="stats" id="meshStats">
+                <p>Vertices: <span id="statVerts">0</span></p>
+                <p>Faces: <span id="statFaces">0</span></p>
+                <p>Area: <span id="statArea">0</span></p>
+                <p>Volume: <span id="statVolume">0</span></p>
+            </div>
+        </div>
+        
+        <div id="canvas-container">
+            <div id="info">
+                <p>Left drag: Rotate | Right drag: Pan | Scroll: Zoom</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <script>
+        let scene, camera, renderer, controls;
+        let meshes = [];
+
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2e);
+            
+            camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(3, 3, 3);
+            
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+            
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(5, 10, 7.5);
+            scene.add(directionalLight);
+            
+            const directionalLight2 = new THREE.DirectionalLight(0x4cc9f0, 0.3);
+            directionalLight2.position.set(-5, -5, -5);
+            scene.add(directionalLight2);
+            
+            const gridHelper = new THREE.GridHelper(10, 10, 0x4cc9f0, 0x0f3460);
+            scene.add(gridHelper);
+            
+            const axesHelper = new THREE.AxesHelper(2);
+            scene.add(axesHelper);
+            
+            window.addEventListener('resize', onWindowResize);
+            animate();
+        }
+        
+        function onWindowResize() {
+            const container = document.getElementById('canvas-container');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        function addMeshToScene(geometry, color) {
+            color = color || 0x4cc9f0;
+            const material = new THREE.MeshPhongMaterial({
+                color: color,
+                flatShading: false,
+                side: THREE.DoubleSide
+            });
+            
+            const mesh = new THREE.Mesh(geometry, material);
+            
+            const wireframeMaterial = new THREE.LineBasicMaterial({ 
+                color: 0xffffff, 
+                transparent: true, 
+                opacity: 0.1 
+            });
+            const wireframe = new THREE.LineSegments(
+                new THREE.WireframeGeometry(geometry),
+                wireframeMaterial
+            );
+            wireframe.visible = document.getElementById('wireframeToggle').checked;
+            mesh.add(wireframe);
+            mesh.userData.wireframe = wireframe;
+            
+            scene.add(mesh);
+            meshes.push(mesh);
+            updateStats(geometry);
+            return mesh;
+        }
+        
+        function updateStats(geometry) {
+            var posAttr = geometry.getAttribute('position');
+            if (!posAttr) return;
+            var vertices = posAttr.count;
+            var faces = geometry.index ? geometry.index.count / 3 : vertices / 3;
+            
+            document.getElementById('statVerts').textContent = vertices.toLocaleString();
+            document.getElementById('statFaces').textContent = Math.floor(faces).toLocaleString();
+            
+            geometry.computeBoundingBox();
+            var box = geometry.boundingBox;
+            var size = new THREE.Vector3();
+            box.getSize(size);
+            
+            document.getElementById('statArea').textContent = 
+                (size.x * size.y * 2 + size.y * size.z * 2 + size.x * size.z * 2).toFixed(4);
+            document.getElementById('statVolume').textContent = 
+                (size.x * size.y * size.z).toFixed(4);
+        }
+        
+        function createSphere() {
+            var geometry = new THREE.SphereGeometry(1, 32, 32);
+            addMeshToScene(geometry, 0x4cc9f0);
+        }
+        
+        function createCube() {
+            var geometry = new THREE.BoxGeometry(1, 1, 1);
+            addMeshToScene(geometry, 0x7209b7);
+        }
+        
+        function createCylinder() {
+            var geometry = new THREE.CylinderGeometry(0.5, 0.5, 2, 32);
+            addMeshToScene(geometry, 0xf72585);
+        }
+        
+        function createTorus() {
+            var geometry = new THREE.TorusGeometry(0.7, 0.3, 16, 48);
+            addMeshToScene(geometry, 0x72efdd);
+        }
+        
+        function loadFileDialog() {
+            document.getElementById('fileInput').click();
+        }
+        
+        function handleFileLoad(event) {
+            var file = event.target.files[0];
+            if (!file) return;
+            
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                loadMeshFromBuffer(e.target.result, file.name);
+            };
+            reader.readAsArrayBuffer(file);
+        }
+        
+        function loadMeshFromBuffer(buffer, filename) {
+            var ext = filename.split('.').pop().toLowerCase();
+            
+            if (ext === 'stl') {
+                var geometry = parseSTL(buffer);
+                if (geometry) {
+                    addMeshToScene(geometry);
+                }
+            } else {
+                alert('STL files supported. For OBJ/PLY, MeshLib WASM module is required.');
+            }
+        }
+        
+        function parseSTL(buffer) {
+            var data = new DataView(buffer);
+            var faces = data.getUint32(80, true);
+            
+            var vertices = [];
+            var normals = [];
+            
+            var offset = 84;
+            for (var i = 0; i < faces; i++) {
+                var nx = data.getFloat32(offset, true);
+                var ny = data.getFloat32(offset + 4, true);
+                var nz = data.getFloat32(offset + 8, true);
+                offset += 12;
+                
+                for (var j = 0; j < 3; j++) {
+                    var x = data.getFloat32(offset, true);
+                    var y = data.getFloat32(offset + 4, true);
+                    var z = data.getFloat32(offset + 8, true);
+                    vertices.push(x, y, z);
+                    normals.push(nx, ny, nz);
+                    offset += 12;
+                }
+                offset += 2;
+            }
+            
+            var geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+            return geometry;
+        }
+        
+        function exportMesh() {
+            if (meshes.length === 0) {
+                alert('No mesh to export!');
+                return;
+            }
+            
+            var mesh = meshes[meshes.length - 1];
+            var stlString = exportToSTL(mesh.geometry);
+            
+            var blob = new Blob([stlString], { type: 'application/octet-stream' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'mesh.stl';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function exportToSTL(geometry) {
+            var stl = 'solid mesh\n';
+            var positions = geometry.getAttribute('position');
+            var indices = geometry.getIndex();
+            
+            function getVertex(i) {
+                return {
+                    x: positions.getX(i),
+                    y: positions.getY(i),
+                    z: positions.getZ(i)
+                };
+            }
+            
+            var faceCount = indices ? indices.count / 3 : positions.count / 3;
+            
+            for (var i = 0; i < faceCount; i++) {
+                var i1 = indices ? indices.getX(i * 3) : i * 3;
+                var i2 = indices ? indices.getX(i * 3 + 1) : i * 3 + 1;
+                var i3 = indices ? indices.getX(i * 3 + 2) : i * 3 + 2;
+                
+                var v1 = getVertex(i1);
+                var v2 = getVertex(i2);
+                var v3 = getVertex(i3);
+                
+                var edge1 = { x: v2.x - v1.x, y: v2.y - v1.y, z: v2.z - v1.z };
+                var edge2 = { x: v3.x - v1.x, y: v3.y - v1.y, z: v3.z - v1.z };
+                var normal = {
+                    x: edge1.y * edge2.z - edge1.z * edge2.y,
+                    y: edge1.z * edge2.x - edge1.x * edge2.z,
+                    z: edge1.x * edge2.y - edge1.y * edge2.x
+                };
+                
+                stl += '  facet normal ' + normal.x + ' ' + normal.y + ' ' + normal.z + '\n';
+                stl += '    outer loop\n';
+                stl += '      vertex ' + v1.x + ' ' + v1.y + ' ' + v1.z + '\n';
+                stl += '      vertex ' + v2.x + ' ' + v2.y + ' ' + v2.z + '\n';
+                stl += '      vertex ' + v3.x + ' ' + v3.y + ' ' + v3.z + '\n';
+                stl += '    endloop\n';
+                stl += '  endfacet\n';
+            }
+            
+            stl += 'endsolid mesh\n';
+            return stl;
+        }
+        
+        function decimateMesh() {
+            if (meshes.length === 0) {
+                alert('No mesh to decimate!');
+                return;
+            }
+            alert('Decimation requires MeshLib WASM module.');
+        }
+        
+        function subdivideMesh() {
+            if (meshes.length === 0) {
+                alert('No mesh to subdivide!');
+                return;
+            }
+            alert('Subdivision requires MeshLib WASM module.');
+        }
+        
+        function fillHoles() {
+            alert('Hole filling requires MeshLib WASM module.');
+        }
+        
+        function fixMesh() {
+            alert('Mesh fixing requires MeshLib WASM module.');
+        }
+        
+        function booleanUnion() {
+            if (meshes.length < 2) {
+                alert('Need at least 2 meshes for boolean operations!');
+                return;
+            }
+            alert('Boolean union requires MeshLib WASM module.');
+        }
+        
+        function booleanIntersection() {
+            if (meshes.length < 2) {
+                alert('Need at least 2 meshes for boolean operations!');
+                return;
+            }
+            alert('Boolean intersection requires MeshLib WASM module.');
+        }
+        
+        function booleanDifference() {
+            if (meshes.length < 2) {
+                alert('Need at least 2 meshes for boolean operations!');
+                return;
+            }
+            alert('Boolean difference requires MeshLib WASM module.');
+        }
+        
+        function toggleWireframe(show) {
+            meshes.forEach(function(mesh) {
+                if (mesh.userData.wireframe) {
+                    mesh.userData.wireframe.visible = show;
+                }
+            });
+        }
+        
+        function resetCamera() {
+            camera.position.set(3, 3, 3);
+            camera.lookAt(0, 0, 0);
+            controls.reset();
+        }
+        
+        function clearScene() {
+            meshes.forEach(function(mesh) {
+                scene.remove(mesh);
+                mesh.geometry.dispose();
+                mesh.material.dispose();
+            });
+            meshes = [];
+            document.getElementById('statVerts').textContent = '0';
+            document.getElementById('statFaces').textContent = '0';
+            document.getElementById('statArea').textContent = '0';
+            document.getElementById('statVolume').textContent = '0';
+        }
+        
+        window.onload = function() {
+            initThreeJS();
+        };
+    </script>
+</body>
+</html>

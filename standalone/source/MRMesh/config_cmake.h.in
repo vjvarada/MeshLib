@@ -1,0 +1,9 @@
+#pragma once
+
+#cmakedefine MESHLIB_VERSION "@MESHLIB_VERSION@"
+#cmakedefine MR_PLATFORM "@MR_PLATFORM@"
+
+#cmakedefine MRMESH_NO_TIFF
+
+// MRMESH_NO_GTEST is defined via target_compile_definitions in CMake
+// to avoid double definition, we don't define it here

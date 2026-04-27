@@ -27,7 +27,17 @@ Both outputs have **100% feature parity** with the main MeshLib library (excludi
 - Hole filling and mesh repair
 - Smoothing and remeshing
 - ICP alignment
-- File I/O (STL, OBJ, PLY, OFF, GLTF, 3MF)
+- File I/O (STL, OBJ, PLY, OFF)
+
+### Extended File Formats (MRIOExtras)
+- **GLTF/GLB** - 3D interchange format (tinygltf)
+- **3MF** - 3D Manufacturing Format (tinyxml2)
+- **E57** - Point cloud format (libE57Format)
+- **LAS/LAZ** - LiDAR point cloud (laz-perf)
+- **CTM** - OpenCTM compressed mesh
+- **JPEG/PNG/TIFF** - Image formats
+- **PDF** - Document export (libharu) ← New
+- **STEP** - CAD format (OpenCASCADE) ← New
 
 ### Voxel Operations (MRVoxels + OpenVDB)
 - **Mesh Offset** (expand/shrink meshes) â† Critical feature
@@ -87,10 +97,41 @@ Detailed instructions are in the `phases/` folder:
 | 2 | [PHASE_2_MRMESH_CORE.md](phases/PHASE_2_MRMESH_CORE.md) | 2 weeks | Core library (~500 files), native build |
 | 3 | [PHASE_3_MRVOXELS_OPENVDB.md](phases/PHASE_3_MRVOXELS_OPENVDB.md) | 1.5 weeks | OpenVDB integration, mesh offset |
 | 4 | [PHASE_4_PYTHON_BINDINGS.md](phases/PHASE_4_PYTHON_BINDINGS.md) | 1.5 weeks | Python wheels with pybind11 |
+| 4.5 | PHASE_4.5_IOEXTRAS_COMPLETE.md | 1 week | MRIOExtras: PDF (libharu), STEP (OpenCASCADE) |
 | 5 | [PHASE_5_WEBASSEMBLY.md](phases/PHASE_5_WEBASSEMBLY.md) | 2-3 weeks | Emscripten build, Embind bindings |
+| 5.5 | PHASE_5.5_WASM_PDF_STEP.md | 1-2 weeks | WASM: PDF (libharu port), STEP (OpenCASCADE port) |
 | 6 | [PHASE_6_THREEJS_INTEGRATION.md](phases/PHASE_6_THREEJS_INTEGRATION.md) | 1-2 weeks | TypeScript API, npm package |
 
-**Total: 9-12 weeks**
+**Total: 11-15 weeks**
+
+---
+
+## Phase 4.5: MRIOExtras Complete (PDF + STEP Native)
+
+### PDF Support (libharu)
+- **Dependency**: `libharu` (vcpkg: v2.4.4)
+- **Enables**: PDF export with text, images, tables, shapes
+- **CMake**: `MESHLIB_IO_PDF=ON`
+
+### STEP Support (OpenCASCADE)
+- **Dependency**: `opencascade-minimal` (custom vcpkg port)
+- **Enables**: CAD STEP file import/export
+- **CMake**: `MESHLIB_IO_STEP=ON`
+
+---
+
+## Phase 5.5: WASM PDF + STEP Support
+
+### PDF in WebAssembly
+- **Strategy**: Port libharu to Emscripten (pure C library)
+- **Build script**: `scripts/thirdparty/libharu.sh`
+- **Challenge**: File I/O abstraction for virtual filesystem
+
+### STEP in WebAssembly
+- **Strategy**: Port opencascade-minimal to Emscripten
+- **Build script**: `scripts/thirdparty/opencascade.sh`
+- **Challenge**: Large C++ codebase, many dependencies
+- **Alternative**: Use Open CASCADE Technology WebAssembly build if available
 
 ---
 

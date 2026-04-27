@@ -1,0 +1,831 @@
+========================================
+Compiling MRBind-Generated Python Bindings
+========================================
+Python Version: 3.13
+Python Include: C:\Users\VijayRaghavVarada\AppData\Local\Programs\Python\Python313\Include
+Python Lib Dir: C:\Users\VijayRaghavVarada\AppData\Local\Programs\Python\Python313\libs
+Clang Resource Dir: C:/msys64_meshlib_mrbind/clang64/lib/clang/21
+
+Compiling C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp...
+This may take a while (the file is 7+ MB)...
+
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:11:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/common.h:3:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1291:55: error: incomplete type 'MR::ObjectVoxels' used in type trait expression
+ 1291 | struct is_base_of : bool_constant<__is_base_of(_Base, _Derived)> {
+      |                                                       ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:1082:34: note: in instantiation of template class 'std::is_base_of<pybind11::detail::pyobject_tag, MR::ObjectVoxels>' requested here
+ 1082 | class type_caster<T, enable_if_t<is_pyobject<T>::value>> : public pyobject_caster<T> {};
+      |                                  ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1291:55: note: during template argument deduction for class template partial specialization 'type_caster<T, enable_if_t<is_pyobject<T>::value>>' [with T = MR::ObjectVoxels]
+ 1291 | struct is_base_of : bool_constant<__is_base_of(_Base, _Derived)> {
+      |                                                       ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1291:55: note: in instantiation of template class 'pybind11::detail::type_caster<MR::ObjectVoxels>' requested here
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:760:24: note: in instantiation of template class 'std::is_base_of<pybind11::detail::type_caster_base<MR::ObjectVoxels>, pybind11::detail::type_caster<MR::ObjectVoxels>>' requested here
+  760 |     static_assert(std::is_base_of<base, type_caster<type>>::value,
+      |                        ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:834:48: note: in instantiation of template class 'pybind11::detail::copyable_holder_caster<MR::ObjectVoxels, std::shared_ptr<MR::ObjectVoxels>>' requested here
+  834 | class type_caster<std::shared_ptr<T>> : public copyable_holder_caster<T, std::shared_ptr<T>> {};
+      |                                                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:54:65: note: (skipping 3 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+   54 | struct as_arg_type<T, typename std::enable_if<is_descr<decltype(T::arg_name)>::value>::type> {
+      |                                                                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:254:34: note: in instantiation of template class 'pybind11::detail::argument_loader<MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &>' requested here
+  254 |                 sizeof...(Args), cast_in::args_pos >= 0, cast_in::has_kwargs),
+      |                                  ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:132:9: note: in instantiation of function template specialization 'pybind11::cpp_function::initialize<void (*&)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), void, MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &, pybind11::is_setter>' requested here
+  132 |         initialize(f, f, extra...);
+      |         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1520:25: note: in instantiation of function template specialization 'pybind11::cpp_function::cpp_function<void, MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &, pybind11::is_setter>' requested here
+ 1520 |             name, fget, cpp_function(method_adaptor<type>(fset), is_setter()), extra...);
+      |                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1211:19: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), void (*)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1211 |                 c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45480:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddMemberVar<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45480:1){}, std::shared_ptr<MR::ObjectVoxels>, pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>>' requested here
+ 45480 | MB_CLASS(struct, LoadedObjectT, (MR::LoadedObjectT<MR::ObjectVoxels>), (MR,ns), /*is aggregate:*/1, "result of loading (e.g. from a file) as one object (with possible subobjects)", /*no bases*/,
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3650:13: note: expanded from macro 'MB_CLASS'
+ 3650 |             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+      |             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3669:70: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBERS'
+ 3669 | #define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
+      |                                                                      ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/macro_sequence_for.h:100:56: note: expanded from macro 'SF_FOR_EACH1'
+  100 | #define SF_FOR_EACH1(m, s, f, d, seq) IMPL_SEQFOR_FOR1(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
+      |                                                        ^
+note: (skipping 8 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+<scratch space>:119:1: note: expanded from here
+  119 | DETAIL_MB_PB11_DISPATCH_MEMBER_field
+      | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3677:92: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBER_field'
+ 3677 |         MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
+      |                                                                                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3463:41: note: expanded from macro 'DETAIL_MB_PB11_IF_STATIC_'
+ 3463 | #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
+      |                                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRLoadedObjects.h:11:7: note: forward declaration of 'MR::ObjectVoxels'
+   11 | class ObjectVoxels;
+      |       ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:14:
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/descr.h:40:19: error: 'typeid' of incomplete type 'MR::ObjectVoxels'
+   40 |         return {{&typeid(Ts)..., nullptr}};
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:344:68: note: in instantiation of member function 'pybind11::detail::descr<18, MR::LoadedObjectT<MR::ObjectVoxels>, MR::ObjectVoxels>::types' requested here
+  344 |         PYBIND11_DESCR_CONSTEXPR auto types = decltype(signature)::types();
+      |                                                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:132:9: note: in instantiation of function template specialization 'pybind11::cpp_function::initialize<void (*&)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), void, MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &, pybind11::is_setter>' requested here
+  132 |         initialize(f, f, extra...);
+      |         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1520:25: note: in instantiation of function template specialization 'pybind11::cpp_function::cpp_function<void, MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &, pybind11::is_setter>' requested here
+ 1520 |             name, fget, cpp_function(method_adaptor<type>(fset), is_setter()), extra...);
+      |                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1211:19: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), void (*)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1211 |                 c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45480:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddMemberVar<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45480:1){}, std::shared_ptr<MR::ObjectVoxels>, pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>>' requested here
+ 45480 | MB_CLASS(struct, LoadedObjectT, (MR::LoadedObjectT<MR::ObjectVoxels>), (MR,ns), /*is aggregate:*/1, "result of loading (e.g. from a file) as one object (with possible subobjects)", /*no bases*/,
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3650:13: note: expanded from macro 'MB_CLASS'
+ 3650 |             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+      |             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3669:70: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBERS'
+ 3669 | #define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
+      |                                                                      ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/macro_sequence_for.h:100:56: note: expanded from macro 'SF_FOR_EACH1'
+  100 | #define SF_FOR_EACH1(m, s, f, d, seq) IMPL_SEQFOR_FOR1(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
+      |                                                        ^
+note: (skipping 8 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+<scratch space>:119:1: note: expanded from here
+  119 | DETAIL_MB_PB11_DISPATCH_MEMBER_field
+      | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3677:92: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBER_field'
+ 3677 |         MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
+      |                                                                                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3463:41: note: expanded from macro 'DETAIL_MB_PB11_IF_STATIC_'
+ 3463 | #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
+      |                                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRLoadedObjects.h:11:7: note: forward declaration of 'MR::ObjectVoxels'
+   11 | class ObjectVoxels;
+      |       ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:15:
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1017:43: error: 'typeid' of incomplete type 'MR::ObjectVoxels'
+ 1017 |     type_caster_base() : type_caster_base(typeid(type)) {}
+      |                                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:757:8: note: in instantiation of member function 'pybind11::detail::type_caster_base<MR::ObjectVoxels>::type_caster_base' requested here
+  757 | struct copyable_holder_caster : public type_caster_base<type> {
+      |        ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:132:9: note: in instantiation of function template specialization 'pybind11::cpp_function::initialize<void (*&)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), void, MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &, pybind11::is_setter>' requested here
+  132 |         initialize(f, f, extra...);
+      |         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1520:25: note: in instantiation of function template specialization 'pybind11::cpp_function::cpp_function<void, MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &, pybind11::is_setter>' requested here
+ 1520 |             name, fget, cpp_function(method_adaptor<type>(fset), is_setter()), extra...);
+      |                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1211:19: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), void (*)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1211 |                 c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45480:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddMemberVar<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45480:1){}, std::shared_ptr<MR::ObjectVoxels>, pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>>' requested here
+ 45480 | MB_CLASS(struct, LoadedObjectT, (MR::LoadedObjectT<MR::ObjectVoxels>), (MR,ns), /*is aggregate:*/1, "result of loading (e.g. from a file) as one object (with possible subobjects)", /*no bases*/,
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3650:13: note: expanded from macro 'MB_CLASS'
+ 3650 |             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+      |             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3669:70: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBERS'
+ 3669 | #define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
+      |                                                                      ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/macro_sequence_for.h:100:56: note: expanded from macro 'SF_FOR_EACH1'
+  100 | #define SF_FOR_EACH1(m, s, f, d, seq) IMPL_SEQFOR_FOR1(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
+      |                                                        ^
+note: (skipping 8 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+<scratch space>:119:1: note: expanded from here
+  119 | DETAIL_MB_PB11_DISPATCH_MEMBER_field
+      | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3677:92: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBER_field'
+ 3677 |         MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
+      |                                                                                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3463:41: note: expanded from macro 'DETAIL_MB_PB11_IF_STATIC_'
+ 3463 | #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
+      |                                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRLoadedObjects.h:11:7: note: forward declaration of 'MR::ObjectVoxels'
+   11 | class ObjectVoxels;
+      |       ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:14:
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/descr.h:40:19: error: 'typeid' of incomplete type 'MR::ObjectVoxels'
+   40 |         return {{&typeid(Ts)..., nullptr}};
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:344:68: note: in instantiation of member function 'pybind11::detail::descr<10, MR::LoadedObjectT<MR::ObjectVoxels>, MR::ObjectVoxels>::types' requested here
+  344 |         PYBIND11_DESCR_CONSTEXPR auto types = decltype(signature)::types();
+      |                                                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:132:9: note: in instantiation of function template specialization 'pybind11::cpp_function::initialize<const std::shared_ptr<MR::ObjectVoxels> &(*&)(const MR::LoadedObjectT<MR::ObjectVoxels> &), const std::shared_ptr<MR::ObjectVoxels> &, const MR::LoadedObjectT<MR::ObjectVoxels> &>' requested here
+  132 |         initialize(f, f, extra...);
+      |         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1528:29: note: in instantiation of function template specialization 'pybind11::cpp_function::cpp_function<const std::shared_ptr<MR::ObjectVoxels> &, const MR::LoadedObjectT<MR::ObjectVoxels> &>' requested here
+ 1528 |                             cpp_function(method_adaptor<type>(fget)),
+      |                             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1519:16: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1519 |         return def_property(
+      |                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1211:19: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), void (*)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1211 |                 c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45480:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddMemberVar<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45480:1){}, std::shared_ptr<MR::ObjectVoxels>, pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>>' requested here
+ 45480 | MB_CLASS(struct, LoadedObjectT, (MR::LoadedObjectT<MR::ObjectVoxels>), (MR,ns), /*is aggregate:*/1, "result of loading (e.g. from a file) as one object (with possible subobjects)", /*no bases*/,
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3650:13: note: expanded from macro 'MB_CLASS'
+ 3650 |             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+      |             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3669:70: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBERS'
+ 3669 | #define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
+      |                                                                      ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/macro_sequence_for.h:100:56: note: expanded from macro 'SF_FOR_EACH1'
+  100 | #define SF_FOR_EACH1(m, s, f, d, seq) IMPL_SEQFOR_FOR1(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
+      |                                                        ^
+note: (skipping 8 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+<scratch space>:119:1: note: expanded from here
+  119 | DETAIL_MB_PB11_DISPATCH_MEMBER_field
+      | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3677:92: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBER_field'
+ 3677 |         MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
+      |                                                                                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3463:41: note: expanded from macro 'DETAIL_MB_PB11_IF_STATIC_'
+ 3463 | #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
+      |                                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRLoadedObjects.h:11:7: note: forward declaration of 'MR::ObjectVoxels'
+   11 | class ObjectVoxels;
+      |       ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:15:
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1036:33: error: 'typeid' of incomplete type 'itype' (aka 'MR::ObjectVoxels')
+ 1036 |         const auto &cast_type = typeid(itype);
+      |                                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1068:19: note: in instantiation of member function 'pybind11::detail::type_caster_base<MR::ObjectVoxels>::src_and_type' requested here
+ 1068 |         auto st = src_and_type(src);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:780:40: note: in instantiation of member function 'pybind11::detail::type_caster_base<MR::ObjectVoxels>::cast_holder' requested here
+  780 |         return type_caster_base<type>::cast_holder(ptr, &src);
+      |                                        ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:287:36: note: in instantiation of member function 'pybind11::detail::copyable_holder_caster<MR::ObjectVoxels, std::shared_ptr<MR::ObjectVoxels>>::cast' requested here
+  287 |                 result = cast_out::cast(
+      |                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:132:9: note: in instantiation of function template specialization 'pybind11::cpp_function::initialize<const std::shared_ptr<MR::ObjectVoxels> &(*&)(const MR::LoadedObjectT<MR::ObjectVoxels> &), const std::shared_ptr<MR::ObjectVoxels> &, const MR::LoadedObjectT<MR::ObjectVoxels> &>' requested here
+  132 |         initialize(f, f, extra...);
+      |         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1528:29: note: in instantiation of function template specialization 'pybind11::cpp_function::cpp_function<const std::shared_ptr<MR::ObjectVoxels> &, const MR::LoadedObjectT<MR::ObjectVoxels> &>' requested here
+ 1528 |                             cpp_function(method_adaptor<type>(fget)),
+      |                             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1519:16: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1519 |         return def_property(
+      |                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1211:19: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), void (*)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1211 |                 c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45480:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddMemberVar<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45480:1){}, std::shared_ptr<MR::ObjectVoxels>, pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>>' requested here
+ 45480 | MB_CLASS(struct, LoadedObjectT, (MR::LoadedObjectT<MR::ObjectVoxels>), (MR,ns), /*is aggregate:*/1, "result of loading (e.g. from a file) as one object (with possible subobjects)", /*no bases*/,
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3650:13: note: expanded from macro 'MB_CLASS'
+ 3650 |             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+      |             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3669:70: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBERS'
+ 3669 | #define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
+      |                                                                      ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/macro_sequence_for.h:100:56: note: expanded from macro 'SF_FOR_EACH1'
+  100 | #define SF_FOR_EACH1(m, s, f, d, seq) IMPL_SEQFOR_FOR1(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
+      |                                                        ^
+note: (skipping 8 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+<scratch space>:119:1: note: expanded from here
+  119 | DETAIL_MB_PB11_DISPATCH_MEMBER_field
+      | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3677:92: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBER_field'
+ 3677 |         MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
+      |                                                                                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3463:41: note: expanded from macro 'DETAIL_MB_PB11_IF_STATIC_'
+ 3463 | #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
+      |                                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRLoadedObjects.h:11:7: note: forward declaration of 'MR::ObjectVoxels'
+   11 | class ObjectVoxels;
+      |       ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:11:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/common.h:3:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:656:39: error: incomplete type 'MR::ObjectVoxels' used in type trait expression
+  656 | struct is_polymorphic : bool_constant<__is_polymorphic(_Ty)> {}; // determine whether _Ty is a polymorphic type
+      |                                       ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:998:67: note: in instantiation of template class 'std::is_polymorphic<MR::ObjectVoxels>' requested here
+  998 | struct polymorphic_type_hook_base<itype, detail::enable_if_t<std::is_polymorphic<itype>::value>> {
+      |                                                                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1005:39: note: during template argument deduction for class template partial specialization 'polymorphic_type_hook_base<itype, detail::enable_if_t<std::is_polymorphic<itype>::value>>' [with itype = MR::ObjectVoxels]
+ 1005 | struct polymorphic_type_hook : public polymorphic_type_hook_base<itype> {};
+      |                                       ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1005:39: note: in instantiation of template class 'pybind11::polymorphic_type_hook_base<MR::ObjectVoxels>' requested here
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1038:28: note: in instantiation of template class 'pybind11::polymorphic_type_hook<MR::ObjectVoxels>' requested here
+ 1038 |         const void *vsrc = polymorphic_type_hook<itype>::get(src, instance_type);
+      |                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1068:19: note: in instantiation of member function 'pybind11::detail::type_caster_base<MR::ObjectVoxels>::src_and_type' requested here
+ 1068 |         auto st = src_and_type(src);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:780:40: note: (skipping 2 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  780 |         return type_caster_base<type>::cast_holder(ptr, &src);
+      |                                        ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:132:9: note: in instantiation of function template specialization 'pybind11::cpp_function::initialize<const std::shared_ptr<MR::ObjectVoxels> &(*&)(const MR::LoadedObjectT<MR::ObjectVoxels> &), const std::shared_ptr<MR::ObjectVoxels> &, const MR::LoadedObjectT<MR::ObjectVoxels> &>' requested here
+  132 |         initialize(f, f, extra...);
+      |         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1528:29: note: in instantiation of function template specialization 'pybind11::cpp_function::cpp_function<const std::shared_ptr<MR::ObjectVoxels> &, const MR::LoadedObjectT<MR::ObjectVoxels> &>' requested here
+ 1528 |                             cpp_function(method_adaptor<type>(fget)),
+      |                             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1519:16: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1519 |         return def_property(
+      |                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1211:19: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def_property<const std::shared_ptr<MR::ObjectVoxels> &(const MR::LoadedObjectT<MR::ObjectVoxels> &), void (*)(MR::LoadedObjectT<MR::ObjectVoxels> &, const std::shared_ptr<MR::ObjectVoxels> &), pybind11::return_value_policy>' requested here
+ 1211 |                 c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45480:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddMemberVar<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45480:1){}, std::shared_ptr<MR::ObjectVoxels>, pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>>' requested here
+ 45480 | MB_CLASS(struct, LoadedObjectT, (MR::LoadedObjectT<MR::ObjectVoxels>), (MR,ns), /*is aggregate:*/1, "result of loading (e.g. from a file) as one object (with possible subobjects)", /*no bases*/,
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3650:13: note: expanded from macro 'MB_CLASS'
+ 3650 |             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+      |             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3669:70: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBERS'
+ 3669 | #define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
+      |                                                                      ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/macro_sequence_for.h:100:56: note: expanded from macro 'SF_FOR_EACH1'
+  100 | #define SF_FOR_EACH1(m, s, f, d, seq) IMPL_SEQFOR_FOR1(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
+      |                                                        ^
+note: (skipping 8 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+<scratch space>:119:1: note: expanded from here
+  119 | DETAIL_MB_PB11_DISPATCH_MEMBER_field
+      | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3677:92: note: expanded from macro 'DETAIL_MB_PB11_DISPATCH_MEMBER_field'
+ 3677 |         MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
+      |                                                                                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3463:41: note: expanded from macro 'DETAIL_MB_PB11_IF_STATIC_'
+ 3463 | #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
+      |                                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRLoadedObjects.h:11:7: note: forward declaration of 'MR::ObjectVoxels'
+   11 | class ObjectVoxels;
+      |       ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:14:
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/descr.h:40:19: error: 'typeid' of incomplete type 'MR::ObjectVoxels'
+   40 |         return {{&typeid(Ts)..., nullptr}};
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:344:68: note: in instantiation of member function 'pybind11::detail::descr<30, pybind11::detail::value_and_holder, MR::ObjectVoxels, std::optional<MR::LengthUnit>>::types' requested here
+  344 |         PYBIND11_DESCR_CONSTEXPR auto types = decltype(signature)::types();
+      |                                                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:141:9: note: in instantiation of function template specialization 'pybind11::cpp_function::initialize<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../thirdparty/mrbind-pybind11/include/pybind11/detail/init.h:297:13), void, pybind11::detail::value_and_holder &, const std::shared_ptr<MR::ObjectVoxels> &, const std::basic_string<char> &, const std::optional<MR::LengthUnit> &, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::detail::is_new_style_constructor, pybind11::arg, pybind11::arg, pybind11::arg, char[32], pybind11::keep_alive<1, 2>, pybind11::keep_alive<1, 3>, pybind11::keep_alive<1, 4>>' requested here
+  141 |         initialize(
+      |         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1355:22: note: in instantiation of function template specialization 'pybind11::cpp_function::cpp_function<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../thirdparty/mrbind-pybind11/include/pybind11/detail/init.h:297:13), pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::detail::is_new_style_constructor, pybind11::arg, pybind11::arg, pybind11::arg, char[32], pybind11::keep_alive<1, 2>, pybind11::keep_alive<1, 3>, pybind11::keep_alive<1, 4>, void>' requested here
+ 1355 |         cpp_function cf(method_adaptor<type>(std::forward<Func>(f)),
+      |                      ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/init.h:295:12: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def<(lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../thirdparty/mrbind-pybind11/include/pybind11/detail/init.h:297:13), pybind11::detail::is_new_style_constructor, pybind11::arg, pybind11::arg, pybind11::arg, char[32], pybind11::keep_alive<1, 2>, pybind11::keep_alive<1, 3>, pybind11::keep_alive<1, 4>>' requested here
+  295 |         cl.def(
+      |            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:1406:25: note: in instantiation of function template specialization 'pybind11::detail::initimpl::factory<MR::LoadedObjectT<MR::ObjectVoxels> *(*)(const std::shared_ptr<MR::ObjectVoxels> &, const std::basic_string<char> &, const std::optional<MR::LengthUnit> &)>::execute<pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>, pybind11::arg, pybind11::arg, pybind11::arg, char[32], pybind11::keep_alive<1, 2>, pybind11::keep_alive<1, 3>, pybind11::keep_alive<1, 4>>' requested here
+ 1406 |         std::move(init).execute(*this, extra...);
+      |                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1333:27: note: in instantiation of function template specialization 'pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>::def<MR::LoadedObjectT<MR::ObjectVoxels> *(*)(const std::shared_ptr<MR::ObjectVoxels> &, const std::basic_string<char> &, const std::optional<MR::LengthUnit> &), pybind11::detail::void_type (*)(), MR::LoadedObjectT<MR::ObjectVoxels> *(const std::shared_ptr<MR::ObjectVoxels> &, const std::basic_string<char> &, const std::optional<MR::LengthUnit> &), pybind11::detail::void_type (), pybind11::arg, pybind11::arg, pybind11::arg, char[32], pybind11::keep_alive<1, 2>, pybind11::keep_alive<1, 3>, pybind11::keep_alive<1, 4>>' requested here
+ 1333 |                         c.def(pybind11::init(+lambda), decltype(data)(data)..., decltype(keepalives)(keepalives)...);
+      |                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1351:14: note: in instantiation of function template specialization 'MRBind::pb11::TryAddCtor<MRBind::pb11::CopyMoveKind::none, 0, true, const std::shared_ptr<MR::ObjectVoxels> &, const std::basic_string<char> &, const std::optional<MR::LengthUnit> &, pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>, pybind11::arg, pybind11::arg, pybind11::arg, const char (&)[32]>' requested here
+ 1351 |             (TryAddCtor<MRBind::pb11::CopyMoveKind::none, 0, true, const P &...>)(c, nullptr, -1, decltype(data)(data)...);
+      |              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45480:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddAggregateCtor<std::shared_ptr<MR::ObjectVoxels>, std::basic_string<char>, std::optional<MR::LengthUnit>, pybind11::class_<MR::LoadedObjectT<MR::ObjectVoxels>, std::shared_ptr<MR::LoadedObjectT<MR::ObjectVoxels>>>, pybind11::arg, pybind11::arg, pybind11::arg, const char (&)[32]>' requested here
+ 45480 | MB_CLASS(struct, LoadedObjectT, (MR::LoadedObjectT<MR::ObjectVoxels>), (MR,ns), /*is aggregate:*/1, "result of loading (e.g. from a file) as one object (with possible subobjects)", /*no bases*/,
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3656:17: note: expanded from macro 'MB_CLASS'
+ 3656 |                 DETAIL_MB_PB11_ADD_AGGREGATE_CTOR(is_aggregate_, bases_, members_) \
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3592:76: note: expanded from macro 'DETAIL_MB_PB11_ADD_AGGREGATE_CTOR'
+ 3592 | #define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR(is_aggregate_, bases_, members_) MRBIND_CAT(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_A_,is_aggregate_)(members_, bases_)
+      |                                                                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/common.h:32:26: note: expanded from macro 'MRBIND_CAT'
+   32 | #define MRBIND_CAT(x, y) DETAIL_MRBIND_CAT(x, y)
+      |                          ^
+note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/common.h:33:33: note: expanded from macro 'DETAIL_MRBIND_CAT'
+   33 | #define DETAIL_MRBIND_CAT(x, y) x##y
+      |                                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3596:62: note: expanded from macro 'DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_B_'
+ 3596 | #define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_B_(...) __VA_OPT__(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_C(__VA_ARGS__))
+      |                                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3598:20: note: expanded from macro 'DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_C'
+ 3598 |     (MRBind::pb11::TryAddAggregateCtor< \
+      |                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRLoadedObjects.h:11:7: note: forward declaration of 'MR::ObjectVoxels'
+   11 | class ObjectVoxels;
+      |       ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:11:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/common.h:3:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:926:50: error: incomplete type 'MR::UnorientedTriangle' used in type trait expression
+  926 | struct is_trivially_destructible : bool_constant<__is_trivially_destructible(_Ty)> {
+      |                                                  ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:48:53: note: in instantiation of template class 'std::is_trivially_destructible<MR::UnorientedTriangle>' requested here
+   48 | struct conjunction<_First, _Rest...> : _Conjunction<_First::value, _First, _Rest...>::type {
+      |                                                     ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:53:44: note: in instantiation of template class 'std::conjunction<std::is_trivially_destructible<MR::UnorientedTriangle>, std::disjunction<std::_Is_default_allocator<std::allocator<MR::UnorientedTriangle>>, std::_Has_no_alloc_destroy<std::allocator<MR::UnorientedTriangle>, MR::UnorientedTriangle *>>>' requested here
+   53 | _INLINE_VAR constexpr bool conjunction_v = conjunction<_Traits...>::value;
+      |                                            ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xmemory:1093:20: note: in instantiation of variable template specialization 'std::conjunction_v<std::is_trivially_destructible<MR::UnorientedTriangle>, std::disjunction<std::_Is_default_allocator<std::allocator<MR::UnorientedTriangle>>, std::_Has_no_alloc_destroy<std::allocator<MR::UnorientedTriangle>, MR::UnorientedTriangle *>>>' requested here
+ 1093 |     if constexpr (!conjunction_v<is_trivially_destructible<_Ty>, _Uses_default_destroy<_Alloc, _Ty*>>) {
+      |                    ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:2053:13: note: in instantiation of function template specialization 'std::_Destroy_range<std::allocator<MR::UnorientedTriangle>>' requested here
+ 2053 |             _Destroy_range(_Myfirst, _Mylast, _Al);
+      |             ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:765:9: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::_Tidy' requested here
+  765 |         _Tidy();
+      |         ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1739:16: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::~vector' requested here
+ 1739 |         return static_cast<_Callable&&>(_Obj)(static_cast<_Ty1&&>(_Arg1), static_cast<_Types2&&>(_Args2)...);
+      |                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1427:36: note: in instantiation of function template specialization 'std::invoke<std::vector<MR::UnorientedTriangle> (*)(const MR::AllLocalTriangulations &, int), const MR::AllLocalTriangulations &, int>' requested here
+ 1427 |                             return INVOKE_FUNC_R;
+      |                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1422:81: note: expanded from macro 'INVOKE_FUNC_R'
+ 1422 |                         #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
+      |                                                                                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1414:46: note: expanded from macro 'INVOKE_FUNC'
+ 1414 |                     #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
+      |                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1413:17: note: while substituting into a lambda expression here
+ 1413 |                 {
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45683:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddFunc<MRBind::pb11::FuncKind::nonmember_or_static, &MR::findRepeatedUnorientedTriangles, const MR::AllLocalTriangulations &, int, (lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45683:1), MRBind::pb11::ModuleOrClassRef>' requested here
+ 45683 | MB_FUNC(/*returns*/(std::vector<MR::UnorientedTriangle>), findRepeatedUnorientedTriangles, findRepeatedUnorientedTriangles, (MR::findRepeatedUnorientedTriangles), (MR::findRepeatedUnorientedTriangles), (MR,ns), /*not deprecated*/, "from local triangulations returns all unoriented triangles with given number of repetitions each in [1,3]", /*params:*/
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3529:27: note: expanded from macro 'MB_FUNC'
+ 3529 |             MRBind::pb11::TryAddFunc<\
+      |                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/const_string.h:4:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/string_view:14:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xstring:14:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xmemory:1094:33: error: arithmetic on a pointer to an incomplete type 'value_type' (aka 'MR::UnorientedTriangle')
+ 1094 |         for (; _First != _Last; ++_First) {
+      |                                 ^ ~~~~~~
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:2053:13: note: in instantiation of function template specialization 'std::_Destroy_range<std::allocator<MR::UnorientedTriangle>>' requested here
+ 2053 |             _Destroy_range(_Myfirst, _Mylast, _Al);
+      |             ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:765:9: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::_Tidy' requested here
+  765 |         _Tidy();
+      |         ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1739:16: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::~vector' requested here
+ 1739 |         return static_cast<_Callable&&>(_Obj)(static_cast<_Ty1&&>(_Arg1), static_cast<_Types2&&>(_Args2)...);
+      |                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1427:36: note: in instantiation of function template specialization 'std::invoke<std::vector<MR::UnorientedTriangle> (*)(const MR::AllLocalTriangulations &, int), const MR::AllLocalTriangulations &, int>' requested here
+ 1427 |                             return INVOKE_FUNC_R;
+      |                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1422:81: note: expanded from macro 'INVOKE_FUNC_R'
+ 1422 |                         #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
+      |                                                                                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1414:46: note: expanded from macro 'INVOKE_FUNC'
+ 1414 |                     #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
+      |                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1413:17: note: while substituting into a lambda expression here
+ 1413 |                 {
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45683:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddFunc<MRBind::pb11::FuncKind::nonmember_or_static, &MR::findRepeatedUnorientedTriangles, const MR::AllLocalTriangulations &, int, (lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45683:1), MRBind::pb11::ModuleOrClassRef>' requested here
+ 45683 | MB_FUNC(/*returns*/(std::vector<MR::UnorientedTriangle>), findRepeatedUnorientedTriangles, findRepeatedUnorientedTriangles, (MR::findRepeatedUnorientedTriangles), (MR::findRepeatedUnorientedTriangles), (MR,ns), /*not deprecated*/, "from local triangulations returns all unoriented triangles with given number of repetitions each in [1,3]", /*params:*/
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3529:27: note: expanded from macro 'MB_FUNC'
+ 3529 |             MRBind::pb11::TryAddFunc<\
+      |                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/const_string.h:4:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/string_view:14:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xstring:14:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xmemory:82:56: error: invalid application of 'alignof' to an incomplete type 'MR::UnorientedTriangle'
+   82 | _INLINE_VAR constexpr size_t _New_alignof = (_STD max)(alignof(_Ty), __STDCPP_DEFAULT_NEW_ALIGNMENT__);
+      |                                                        ^~~~~~~~~~~~
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xmemory:977:21: note: in instantiation of variable template specialization 'std::_New_alignof<MR::UnorientedTriangle>' requested here
+  977 |         _Deallocate<_New_alignof<_Ty>>(_Ptr, sizeof(_Ty) * _Count);
+      |                     ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:2055:17: note: in instantiation of member function 'std::allocator<MR::UnorientedTriangle>::deallocate' requested here
+ 2055 |             _Al.deallocate(_Myfirst, static_cast<size_type>(_Myend - _Myfirst));
+      |                 ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:765:9: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::_Tidy' requested here
+  765 |         _Tidy();
+      |         ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1739:16: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::~vector' requested here
+ 1739 |         return static_cast<_Callable&&>(_Obj)(static_cast<_Ty1&&>(_Arg1), static_cast<_Types2&&>(_Args2)...);
+      |                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1427:36: note: in instantiation of function template specialization 'std::invoke<std::vector<MR::UnorientedTriangle> (*)(const MR::AllLocalTriangulations &, int), const MR::AllLocalTriangulations &, int>' requested here
+ 1427 |                             return INVOKE_FUNC_R;
+      |                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1422:81: note: expanded from macro 'INVOKE_FUNC_R'
+ 1422 |                         #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
+      |                                                                                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1414:46: note: expanded from macro 'INVOKE_FUNC'
+ 1414 |                     #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
+      |                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1413:17: note: while substituting into a lambda expression here
+ 1413 |                 {
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45683:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddFunc<MRBind::pb11::FuncKind::nonmember_or_static, &MR::findRepeatedUnorientedTriangles, const MR::AllLocalTriangulations &, int, (lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45683:1), MRBind::pb11::ModuleOrClassRef>' requested here
+ 45683 | MB_FUNC(/*returns*/(std::vector<MR::UnorientedTriangle>), findRepeatedUnorientedTriangles, findRepeatedUnorientedTriangles, (MR::findRepeatedUnorientedTriangles), (MR::findRepeatedUnorientedTriangles), (MR,ns), /*not deprecated*/, "from local triangulations returns all unoriented triangles with given number of repetitions each in [1,3]", /*params:*/
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3529:27: note: expanded from macro 'MB_FUNC'
+ 3529 |             MRBind::pb11::TryAddFunc<\
+      |                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/const_string.h:4:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/string_view:14:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xstring:14:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xmemory:977:46: error: invalid application of 'sizeof' to an incomplete type 'MR::UnorientedTriangle'
+  977 |         _Deallocate<_New_alignof<_Ty>>(_Ptr, sizeof(_Ty) * _Count);
+      |                                              ^~~~~~~~~~~
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:2055:17: note: in instantiation of member function 'std::allocator<MR::UnorientedTriangle>::deallocate' requested here
+ 2055 |             _Al.deallocate(_Myfirst, static_cast<size_type>(_Myend - _Myfirst));
+      |                 ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:765:9: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::_Tidy' requested here
+  765 |         _Tidy();
+      |         ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1739:16: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::~vector' requested here
+ 1739 |         return static_cast<_Callable&&>(_Obj)(static_cast<_Ty1&&>(_Arg1), static_cast<_Types2&&>(_Args2)...);
+      |                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1427:36: note: in instantiation of function template specialization 'std::invoke<std::vector<MR::UnorientedTriangle> (*)(const MR::AllLocalTriangulations &, int), const MR::AllLocalTriangulations &, int>' requested here
+ 1427 |                             return INVOKE_FUNC_R;
+      |                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1422:81: note: expanded from macro 'INVOKE_FUNC_R'
+ 1422 |                         #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
+      |                                                                                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1414:46: note: expanded from macro 'INVOKE_FUNC'
+ 1414 |                     #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
+      |                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1413:17: note: while substituting into a lambda expression here
+ 1413 |                 {
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45683:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddFunc<MRBind::pb11::FuncKind::nonmember_or_static, &MR::findRepeatedUnorientedTriangles, const MR::AllLocalTriangulations &, int, (lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45683:1), MRBind::pb11::ModuleOrClassRef>' requested here
+ 45683 | MB_FUNC(/*returns*/(std::vector<MR::UnorientedTriangle>), findRepeatedUnorientedTriangles, findRepeatedUnorientedTriangles, (MR::findRepeatedUnorientedTriangles), (MR::findRepeatedUnorientedTriangles), (MR,ns), /*not deprecated*/, "from local triangulations returns all unoriented triangles with given number of repetitions each in [1,3]", /*params:*/
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3529:27: note: expanded from macro 'MB_FUNC'
+ 3529 |             MRBind::pb11::TryAddFunc<\
+      |                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:13:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/common.h:263:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/unordered_map:10:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xhash:13:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:2055:68: error: arithmetic on a pointer to an incomplete type 'value_type' (aka 'MR::UnorientedTriangle')
+ 2055 |             _Al.deallocate(_Myfirst, static_cast<size_type>(_Myend - _Myfirst));
+      |                                                             ~~~~~~ ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:765:9: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::_Tidy' requested here
+  765 |         _Tidy();
+      |         ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1739:16: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::~vector' requested here
+ 1739 |         return static_cast<_Callable&&>(_Obj)(static_cast<_Ty1&&>(_Arg1), static_cast<_Types2&&>(_Args2)...);
+      |                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1427:36: note: in instantiation of function template specialization 'std::invoke<std::vector<MR::UnorientedTriangle> (*)(const MR::AllLocalTriangulations &, int), const MR::AllLocalTriangulations &, int>' requested here
+ 1427 |                             return INVOKE_FUNC_R;
+      |                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1422:81: note: expanded from macro 'INVOKE_FUNC_R'
+ 1422 |                         #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
+      |                                                                                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1414:46: note: expanded from macro 'INVOKE_FUNC'
+ 1414 |                     #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
+      |                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1413:17: note: while substituting into a lambda expression here
+ 1413 |                 {
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45683:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddFunc<MRBind::pb11::FuncKind::nonmember_or_static, &MR::findRepeatedUnorientedTriangles, const MR::AllLocalTriangulations &, int, (lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45683:1), MRBind::pb11::ModuleOrClassRef>' requested here
+ 45683 | MB_FUNC(/*returns*/(std::vector<MR::UnorientedTriangle>), findRepeatedUnorientedTriangles, findRepeatedUnorientedTriangles, (MR::findRepeatedUnorientedTriangles), (MR::findRepeatedUnorientedTriangles), (MR,ns), /*not deprecated*/, "from local triangulations returns all unoriented triangles with given number of repetitions each in [1,3]", /*params:*/
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3529:27: note: expanded from macro 'MB_FUNC'
+ 3529 |             MRBind::pb11::TryAddFunc<\
+      |                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:11:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/common.h:3:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:757:46: error: incomplete type 'MR::UnorientedTriangle' used in type trait expression
+  757 | struct is_copy_constructible : bool_constant<__is_constructible(_Ty, add_lvalue_reference_t<const _Ty>)> {
+      |                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/common.h:717:31: note: in instantiation of template class 'std::is_copy_constructible<MR::UnorientedTriangle>' requested here
+  717 | using all_of = bool_constant<(Ts::value && ...)>;
+      |                               ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:940:7: note: in instantiation of template type alias 'all_of' requested here
+  940 |     : all_of<std::is_copy_constructible<T>,
+      |       ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/common.h:717:31: note: in instantiation of template class 'pybind11::detail::is_copy_constructible<MR::UnorientedTriangle>' requested here
+  717 | using all_of = bool_constant<(Ts::value && ...)>;
+      |                               ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:940:7: note: in instantiation of template type alias 'all_of' requested here
+  940 |     : all_of<std::is_copy_constructible<T>,
+      |       ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1457:41: note: in instantiation of template class 'pybind11::detail::is_copy_constructible<std::vector<MR::UnorientedTriangle>>' requested here
+ 1457 |                 (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
+      |                                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45683:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddFunc<MRBind::pb11::FuncKind::nonmember_or_static, &MR::findRepeatedUnorientedTriangles, const MR::AllLocalTriangulations &, int, (lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45683:1), MRBind::pb11::ModuleOrClassRef>' requested here
+ 45683 | MB_FUNC(/*returns*/(std::vector<MR::UnorientedTriangle>), findRepeatedUnorientedTriangles, findRepeatedUnorientedTriangles, (MR::findRepeatedUnorientedTriangles), (MR::findRepeatedUnorientedTriangles), (MR,ns), /*not deprecated*/, "from local triangulations returns all unoriented triangles with given number of repetitions each in [1,3]", /*params:*/
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3529:27: note: expanded from macro 'MB_FUNC'
+ 3529 |             MRBind::pb11::TryAddFunc<\
+      |                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:11:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/common.h:3:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:785:46: error: incomplete type 'MR::UnorientedTriangle' used in type trait expression
+  785 | struct is_move_constructible : bool_constant<__is_constructible(_Ty, _Ty)> {
+      |                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/common.h:717:31: note: in instantiation of template class 'std::is_move_constructible<MR::UnorientedTriangle>' requested here
+  717 | using all_of = bool_constant<(Ts::value && ...)>;
+      |                               ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:921:7: note: in instantiation of template type alias 'all_of' requested here
+  921 |     : all_of<std::is_move_constructible<T>,
+      |       ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/common.h:717:31: note: in instantiation of template class 'pybind11::detail::is_move_constructible<MR::UnorientedTriangle>' requested here
+  717 | using all_of = bool_constant<(Ts::value && ...)>;
+      |                               ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:921:7: note: in instantiation of template type alias 'all_of' requested here
+  921 |     : all_of<std::is_move_constructible<T>,
+      |       ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1103:50: note: in instantiation of template class 'pybind11::detail::is_move_constructible<std::vector<MR::UnorientedTriangle>>' requested here
+ 1103 |     template <typename T, typename = enable_if_t<is_move_constructible<T>::value>>
+      |                                                  ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/type_caster_base.h:1104:17: note: (skipping 3 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+ 1104 |     static auto make_move_constructor(const T *)
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:287:36: note: in instantiation of member function 'pybind11::detail::type_caster_base<std::vector<MR::UnorientedTriangle>>::cast' requested here
+  287 |                 result = cast_out::cast(
+      |                                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:132:9: note: in instantiation of function template specialization 'pybind11::cpp_function::initialize<std::vector<MR::UnorientedTriangle> (*&)(const MR::AllLocalTriangulations &, int), std::vector<MR::UnorientedTriangle>, const MR::AllLocalTriangulations &, int, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::return_value_policy, pybind11::arg, char[106]>' requested here
+  132 |         initialize(f, f, extra...);
+      |         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:264:44: note: in instantiation of function template specialization 'pybind11::cpp_function::cpp_function<std::vector<MR::UnorientedTriangle>, const MR::AllLocalTriangulations &, int, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::return_value_policy, pybind11::arg, char[106]>' requested here
+  264 |             GetPybindObject().attr(name) = pybind11::cpp_function(
+      |                                            ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:1569:59: note: in instantiation of function template specialization 'MRBind::pb11::BasicPybindType::AddExtraMethod<std::vector<MR::UnorientedTriangle> (*)(const MR::AllLocalTriangulations &, int), pybind11::return_value_policy, pybind11::arg, char[106]>' requested here
+ 1569 |                                 iter->second.pybind_type->AddExtraMethod(final_name, +lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+      |                                                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:45683:1: note: in instantiation of function template specialization 'MRBind::pb11::TryAddFunc<MRBind::pb11::FuncKind::nonmember_or_static, &MR::findRepeatedUnorientedTriangles, const MR::AllLocalTriangulations &, int, (lambda at C:/Users/VijayRaghavVarada/Documents/Github/MeshLib/standalone/scripts/mrbind/../../temp_bindings/bindings_all.cpp:45683:1), MRBind::pb11::ModuleOrClassRef>' requested here
+ 45683 | MB_FUNC(/*returns*/(std::vector<MR::UnorientedTriangle>), findRepeatedUnorientedTriangles, findRepeatedUnorientedTriangles, (MR::findRepeatedUnorientedTriangles), (MR::findRepeatedUnorientedTriangles), (MR,ns), /*not deprecated*/, "from local triangulations returns all unoriented triangles with given number of repetitions each in [1,3]", /*params:*/
+       | ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:3529:27: note: expanded from macro 'MB_FUNC'
+ 3529 |             MRBind::pb11::TryAddFunc<\
+      |                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:13:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/common.h:263:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/unordered_map:10:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xhash:13:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:1877:56: error: arithmetic on a pointer to an incomplete type 'value_type' (aka 'MR::UnorientedTriangle')
+ 1877 |         return static_cast<size_type>(_My_data._Mylast - _My_data._Myfirst);
+      |                                       ~~~~~~~~~~~~~~~~ ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:69:37: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::size' requested here
+   69 |         cl.def(+"__len__", &Vector::size);
+      |                                     ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:243:126: note: in instantiation of function template specialization 'pybind11::patched::bind_vector<std::vector<MR::UnorientedTriangle>>' requested here
+  243 |     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
+      |                                                                                                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:647:74: note: in instantiation of static data member 'MRBind::pb11::RegisterOneTypeWithCustomBindingDirect<std::vector<MR::UnorientedTriangle>>::register_type' requested here
+  647 |         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
+      |                                                                          ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:6:
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:114:24: error: invalid application of 'sizeof' to an incomplete type 'ValueType' (aka 'MR::UnorientedTriangle')
+  114 |                 return sizeof(ValueType);
+      |                        ^~~~~~~~~~~~~~~~~
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:113:13: note: while substituting into a lambda expression here
+  113 |             {
+      |             ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:243:126: note: in instantiation of function template specialization 'pybind11::patched::bind_vector<std::vector<MR::UnorientedTriangle>>' requested here
+  243 |     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
+      |                                                                                                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:647:74: note: in instantiation of static data member 'MRBind::pb11::RegisterOneTypeWithCustomBindingDirect<std::vector<MR::UnorientedTriangle>>::register_type' requested here
+  647 |         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
+      |                                                                          ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:13:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/common.h:263:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/unordered_map:10:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xhash:13:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:1897:16: error: subscript of pointer to incomplete type 'value_type' (aka 'MR::UnorientedTriangle')
+ 1897 |         return _My_data._Myfirst[_Pos];
+      |                ^~~~~~~~~~~~~~~~~
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/stl_bind.h:336:20: note: in instantiation of member function 'std::vector<MR::UnorientedTriangle>::operator[]' requested here
+  336 |             return v[(SizeType) i];
+      |                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/stl_bind.h:334:48: note: while substituting into a lambda expression here
+  334 |         [wrap_i](Vector &v, DiffType i) -> T & {
+      |                                                ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:62:17: note: in instantiation of function template specialization 'pybind11::detail::vector_accessor<std::vector<MR::UnorientedTriangle>, pybind11::class_<std::vector<MR::UnorientedTriangle>, std::shared_ptr<std::vector<MR::UnorientedTriangle>>>>' requested here
+   62 |         detail::vector_accessor<Vector, Class_>(cl);
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:243:126: note: in instantiation of function template specialization 'pybind11::patched::bind_vector<std::vector<MR::UnorientedTriangle>>' requested here
+  243 |     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
+      |                                                                                                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:647:74: note: in instantiation of static data member 'MRBind::pb11::RegisterOneTypeWithCustomBindingDirect<std::vector<MR::UnorientedTriangle>>::register_type' requested here
+  647 |         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
+      |                                                                          ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:21:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/functional.h:14:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/class.h:12:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/attr.h:13:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/detail/common.h:263:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/unordered_map:10:
+In file included from C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/xhash:13:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:78:9: error: arithmetic on a pointer to an incomplete type 'value_type' (aka 'MR::UnorientedTriangle')
+   78 |         ++_Ptr;
+      |         ^ ~~~~
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/vector:283:18: note: in instantiation of member function 'std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>::operator++' requested here
+  283 |         _Mybase::operator++();
+      |                  ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:2035:25: note: in instantiation of member function 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>::operator++' requested here
+ 2035 |                         ++s.it;
+      |                         ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:2033:43: note: while substituting into a lambda expression here
+ 2033 |                 [](state &s) -> ValueType {
+      |                                           ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:2063:20: note: in instantiation of function template specialization 'pybind11::detail::make_iterator_impl<pybind11::detail::iterator_access<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>>, pybind11::return_value_policy::reference_internal, std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>, std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>, MR::UnorientedTriangle &>' requested here
+ 2063 |     return detail::make_iterator_impl<detail::iterator_access<Iterator>,
+      |                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/stl_bind.h:344:20: note: in instantiation of function template specialization 'pybind11::make_iterator<pybind11::return_value_policy::reference_internal, std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>, std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>, MR::UnorientedTriangle &>' requested here
+  344 |             return make_iterator<return_value_policy::reference_internal, ItType, ItType, T &>(
+      |                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:62:17: note: in instantiation of function template specialization 'pybind11::detail::vector_accessor<std::vector<MR::UnorientedTriangle>, pybind11::class_<std::vector<MR::UnorientedTriangle>, std::shared_ptr<std::vector<MR::UnorientedTriangle>>>>' requested here
+   62 |         detail::vector_accessor<Vector, Class_>(cl);
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:243:126: note: in instantiation of function template specialization 'pybind11::patched::bind_vector<std::vector<MR::UnorientedTriangle>>' requested here
+  243 |     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
+      |                                                                                                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:647:74: note: in instantiation of static data member 'MRBind::pb11::RegisterOneTypeWithCustomBindingDirect<std::vector<MR::UnorientedTriangle>>::register_type' requested here
+  647 |         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
+      |                                                                          ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\temp_bindings\bindings_all.cpp:4:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11.h:3:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:11:
+In file included from C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/helpers/common.h:3:
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1291:55: error: incomplete type 'MR::UnorientedTriangle' used in type trait expression
+ 1291 | struct is_base_of : bool_constant<__is_base_of(_Base, _Derived)> {
+      |                                                       ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:1082:34: note: in instantiation of template class 'std::is_base_of<pybind11::detail::pyobject_tag, MR::UnorientedTriangle>' requested here
+ 1082 | class type_caster<T, enable_if_t<is_pyobject<T>::value>> : public pyobject_caster<T> {};
+      |                                  ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1291:55: note: during template argument deduction for class template partial specialization 'type_caster<T, enable_if_t<is_pyobject<T>::value>>' [with T = MR::UnorientedTriangle]
+ 1291 | struct is_base_of : bool_constant<__is_base_of(_Base, _Derived)> {
+      |                                                       ^
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.39.33519\include/type_traits:1291:55: note: in instantiation of template class 'pybind11::detail::type_caster<MR::UnorientedTriangle>' requested here
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/cast.h:1142:30: note: in instantiation of template class 'std::is_base_of<pybind11::detail::type_caster_generic, pybind11::detail::type_caster<MR::UnorientedTriangle>>' requested here
+ 1142 |     detail::enable_if_t<std::is_base_of<type_caster_generic, make_caster<Return>>::value, void>> {
+      |                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:276:19: note: during template argument deduction for class template partial specialization 'return_value_policy_override<Return, detail::enable_if_t<std::is_base_of<type_caster_generic, make_caster<Return>>::value, void>>' [with Return = MR::UnorientedTriangle &]
+  276 |                 = return_value_policy_override<Return>::policy(call.func.policy);
+      |                   ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:276:19: note: (skipping 5 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/pybind11.h:2063:20: note: in instantiation of function template specialization 'pybind11::detail::make_iterator_impl<pybind11::detail::iterator_access<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>>, pybind11::return_value_policy::reference_internal, std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>, std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>, MR::UnorientedTriangle &>' requested here
+ 2063 |     return detail::make_iterator_impl<detail::iterator_access<Iterator>,
+      |                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\thirdparty\mrbind-pybind11\include/pybind11/stl_bind.h:344:20: note: in instantiation of function template specialization 'pybind11::make_iterator<pybind11::return_value_policy::reference_internal, std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>, std::_Vector_iterator<std::_Vector_val<std::_Simple_types<MR::UnorientedTriangle>>>, MR::UnorientedTriangle &>' requested here
+  344 |             return make_iterator<return_value_policy::reference_internal, ItType, ItType, T &>(
+      |                    ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:62:17: note: in instantiation of function template specialization 'pybind11::detail::vector_accessor<std::vector<MR::UnorientedTriangle>, pybind11::class_<std::vector<MR::UnorientedTriangle>, std::shared_ptr<std::vector<MR::UnorientedTriangle>>>>' requested here
+   62 |         detail::vector_accessor<Vector, Class_>(cl);
+      |                 ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/bind_std.h:243:126: note: in instantiation of function template specialization 'pybind11::patched::bind_vector<std::vector<MR::UnorientedTriangle>>' requested here
+  243 |     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
+      |                                                                                                                              ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\..\thirdparty\mrbind\include/mrbind/targets/pybind11/core.h:647:74: note: in instantiation of static data member 'MRBind::pb11::RegisterOneTypeWithCustomBindingDirect<std::vector<MR::UnorientedTriangle>>::register_type' requested here
+  647 |         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
+      |                                                                          ^
+C:\Users\VijayRaghavVarada\Documents\Github\MeshLib\standalone\scripts\mrbind\..\..\source/MRMesh/MRMeshFwd.h:140:8: note: forward declaration of 'MR::UnorientedTriangle'
+  140 | struct UnorientedTriangle;
+      |        ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+
+ERROR: Compilation failed with error code 1

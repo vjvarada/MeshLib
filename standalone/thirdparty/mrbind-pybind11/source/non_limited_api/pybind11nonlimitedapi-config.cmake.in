@@ -1,0 +1,6 @@
+@PACKAGE_INIT@
+
+if(@PYBIND11_NONLIMITEDAPI_BUILD_STUBS@)
+  include("${CMAKE_CURRENT_LIST_DIR}/pybind11nonlimitedapi_stubs-targets.cmake")
+  check_required_components(pybind11nonlimitedapi_stubs)
+endif()

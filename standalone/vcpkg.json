@@ -1,0 +1,95 @@
+﻿{
+    "name": "meshlib-standalone",
+    "version": "1.0.0",
+    "description": "MeshLib Standalone - Industrial-grade mesh processing for Python and WebAssembly",
+    "homepage": "https://github.com/MeshInspector/MeshLib",
+    "dependencies": [
+        "boost-headers",
+        "boost-algorithm",
+        "boost-exception",
+        "boost-multiprecision",
+        "boost-serialization",
+        "boost-signals2",
+        "boost-stacktrace",
+        "eigen3",
+        "fmt",
+        "spdlog",
+        "tbb",
+        "jsoncpp",
+        "libzip",
+        "tl-expected",
+        "zlib",
+        "tiff",
+        "libpng",
+        "libjpeg-turbo",
+        "tinyxml2",
+        "libe57format",
+        "libharu",
+        "opencascade-minimal",
+        "pybind11",
+        "boost-iostreams",
+        "openvdb",
+        "blosc"
+    ],
+    "builtin-baseline": "af752f21c9d79ba3df9cb0250ce2233933f58486",
+    "features": {
+        "voxels": {
+            "description": "Voxel operations with OpenVDB",
+            "dependencies": [
+                {
+                    "name": "openvdb",
+                    "default-features": false
+                },
+                "blosc",
+                "boost-iostreams"
+            ]
+        },
+        "testing": {
+            "description": "Testing support",
+            "dependencies": ["gtest"]
+        },
+        "python": {
+            "description": "Python bindings",
+            "dependencies": ["pybind11"]
+        },
+        "dicom": {
+            "description": "DICOM medical imaging support",
+            "dependencies": ["gdcm"]
+        },
+        "e57": {
+            "description": "E57 point cloud format support",
+            "dependencies": ["libe57format"]
+        },
+        "gltf": {
+            "description": "GLTF/GLB format support",
+            "dependencies": []
+        },
+        "las": {
+            "description": "LAS/LAZ point cloud format support",
+            "dependencies": []
+        },
+        "jpeg": {
+            "description": "JPEG image support",
+            "dependencies": ["libjpeg-turbo"]
+        },
+        "png": {
+            "description": "PNG image support",
+            "dependencies": ["libpng"]
+        },
+        "pdf": {
+            "description": "PDF export support",
+            "dependencies": ["libharu"]
+        },
+        "step": {
+            "description": "STEP CAD format support (OpenCASCADE - large dependency)",
+            "dependencies": ["opencascade-minimal"]
+        },
+        "full": {
+            "description": "All optional features",
+            "dependencies": [
+                { "name": "meshlib-standalone", "features": ["voxels", "testing", "python", "jpeg", "png", "pdf"] }
+            ]
+        }
+    },
+    "default-features": []
+}
